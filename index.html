@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Get Sum</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    <script>
+
+function blackOrWhiteKey(keyPressCount) {
+    if (keyPressCount%88===0) {
+        return "white"
+    }
+    else {
+        var key = keyPressCount%88;
+        var octave = key%12;
+        console.log(key, octave);
+        if (octave===0||octave===2||octave===5||octave===7||octave===10) {
+        return "black";
+        }
+        else {
+        return "white";
+        } 
+    }  
+}
+
+console.log(blackOrWhiteKey(88));
+
+        
+        </script>
+
+</body>
+</html>
