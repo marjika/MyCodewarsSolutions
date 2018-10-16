@@ -17,7 +17,7 @@ function blackOrWhiteKey(keyPressCount) {
     else {
         var key = keyPressCount%88;
         var octave = key%12;
-        console.log(key, octave);
+        //console.log(key, octave);
         if (octave===0||octave===2||octave===5||octave===7||octave===10) {
         return "black";
         }
@@ -27,8 +27,44 @@ function blackOrWhiteKey(keyPressCount) {
     }  
 }
 
-console.log(blackOrWhiteKey(88));
+//console.log(blackOrWhiteKey(88));
 
+// class FileNameExtractor {
+//     static extractFileName (dirtyFileName) {
+//         var myRegexp = /(?<=_)(\w*).(\w*)/; 
+//         var match = myRegexp.exec(dirtyFileName); 
+//         return match[0];   
+//     }
+// }
+
+//  var myRegexp = /(?<=_)([a-z_-]*)\.\w*/gi;
+
+// console.log(FileNameExtractor.extractFileName("1231231223123131_FILE_NAME.EXTENSION.OTHEREXTENSION"));
+
+function duplicateEncode(word){
+  var answer = [];
+  var testWord = word.toLowerCase();
+   for (i=0; i<testWord.length; i++) {
+     var repeat = false;
+     if (word) {
+       for(j=0; j<testWord.length; j++) {
+         if (testWord[i]===testWord[j] && i!==j) {
+           repeat = true;
+           console.log(testWord[i], testWord[j], i, j, repeat);
+         }
+       }
+       if (repeat) {
+         answer.push(')');
+       }
+       else {
+         answer.push('(');
+       }
+      }
+   }
+   return answer.join("");
+}
+
+console.log(duplicateEncode("recede"));
         
         </script>
 
