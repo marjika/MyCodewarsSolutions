@@ -41,31 +41,102 @@ function blackOrWhiteKey(keyPressCount) {
 
 // console.log(FileNameExtractor.extractFileName("1231231223123131_FILE_NAME.EXTENSION.OTHEREXTENSION"));
 
-function duplicateEncode(word){
-  var answer = [];
-  var testWord = word.toLowerCase();
-   for (i=0; i<testWord.length; i++) {
-     var repeat = false;
-     if (word) {
-       for(j=0; j<testWord.length; j++) {
-         if (testWord[i]===testWord[j] && i!==j) {
-           repeat = true;
-           console.log(testWord[i], testWord[j], i, j, repeat);
-         }
-       }
-       if (repeat) {
-         answer.push(')');
-       }
-       else {
-         answer.push('(');
-       }
+// function duplicateEncode(word){
+//   var answer = [];
+//   var testWord = word.toLowerCase();
+//    for (i=0; i<testWord.length; i++) {
+//      var repeat = false;
+//      if (word) {
+//        for(j=0; j<testWord.length; j++) {
+//          if (testWord[i]===testWord[j] && i!==j) {
+//            repeat = true;
+//            console.log(testWord[i], testWord[j], i, j, repeat);
+//          }
+//        }
+//        if (repeat) {
+//          answer.push(')');
+//        }
+//        else {
+//          answer.push('(');
+//        }
+//       }
+//    }
+//    return answer.join("");
+// }
+
+// console.log(duplicateEncode("recede"));
+
+// function incrementString (strng) {
+//   if (isNaN(strng[strng.length-1])){
+//       return strng + "1";
+//   }
+//   else{
+//       var i, position;
+//       for (i=strng.length-1;i>=0;i--) {
+//           if (isNaN(strng[i])) {
+//               position = i;
+//               break;
+//           }
+//       }
+//       if (strng[position+1]==0) {
+//           var length = (strng.substring(position+1,strng.length)).length;
+//           var num = parseInt(strng.substring(position+1,strng.length))+1;
+//           var str = '' + num;
+//         if ((num.toString()).length> ((parseInt(strng.substring(position+1,strng.length))).toString()).length) {
+//             while (str.length <= length) {
+//                 str = '0' + str;
+//               }
+//         }
+//         else {
+//             while (str.length < length) {
+//                 str = '0' + str;
+//             }
+//         }
+//           return strng.substring(0,position+1) + str;
+//       }
+//       else {
+//         return strng.substring(0,position+1) + (parseInt(strng.substring(position+1,strng.length))+1);
+//       }
+//   }
+// }
+        
+function incrementString (strng) {
+  if (isNaN(strng[strng.length-1])){
+      return strng + "1";
+  }
+  else{
+      var i, position;
+      for (i=strng.length-1;i>=0;i--) {
+          if (isNaN(strng[i])) {
+              position = i;
+              break;
+          }
       }
-   }
-   return answer.join("");
+      if (strng[position+1]==0) {
+          var length = (strng.substring(position+1,strng.length)).length;
+          var num = parseInt(strng.substring(position+1,strng.length))+1;
+          var str = '' + num;
+        if (num.length> (parseInt(strng.substring(position+1,strng.length))).length) {
+            while (str.length <= length) {
+                str = '0' + str;
+              }
+        }
+        else {
+            while (str.length < length) {
+                str = '0' + str;
+            }
+        }
+          return strng.substring(0,position+1) + str;
+      }
+      else {
+        return strng.substring(0,position+1) + (parseInt(strng.substring(position+1,strng.length))+1);
+      }
+  }
 }
 
-console.log(duplicateEncode("recede"));
-        
+console.log(incrementString("foobar001"));
+console.log(incrementString("foobar09"));
+
         </script>
 
 </body>
