@@ -100,42 +100,79 @@ function blackOrWhiteKey(keyPressCount) {
 //   }
 // }
         
-function incrementString (strng) {
-  if (isNaN(strng[strng.length-1])){
-      return strng + "1";
-  }
-  else{
-      var i, position;
-      for (i=strng.length-1;i>=0;i--) {
-          if (isNaN(strng[i])) {
-              position = i;
-              break;
-          }
-      }
-      if (strng[position+1]==0) {
-          var length = (strng.substring(position+1,strng.length)).length;
-          var num = parseInt(strng.substring(position+1,strng.length))+1;
-          var str = '' + num;
-        if (num.length> (parseInt(strng.substring(position+1,strng.length))).length) {
-            while (str.length <= length) {
-                str = '0' + str;
-              }
-        }
-        else {
-            while (str.length < length) {
-                str = '0' + str;
-            }
-        }
-          return strng.substring(0,position+1) + str;
-      }
-      else {
-        return strng.substring(0,position+1) + (parseInt(strng.substring(position+1,strng.length))+1);
-      }
-  }
+// function incrementString (strng) {
+//   if (isNaN(strng[strng.length-1])){
+//       return strng + "1";
+//   }
+//   else{
+//       var i, position;
+//       for (i=strng.length-1;i>=0;i--) {
+//           if (isNaN(strng[i])) {
+//               position = i;
+//               break;
+//           }
+//       }
+//       if (strng[position+1]==0) {
+//           var length = (strng.substring(position+1,strng.length)).length;
+//           var num = parseInt(strng.substring(position+1,strng.length))+1;
+//           var str = '' + num;
+//         if (num.length> (parseInt(strng.substring(position+1,strng.length))).length) {
+//             while (str.length <= length) {
+//                 str = '0' + str;
+//               }
+//         }
+//         else {
+//             while (str.length < length) {
+//                 str = '0' + str;
+//             }
+//         }
+//           return strng.substring(0,position+1) + str;
+//       }
+//       else {
+//         return strng.substring(0,position+1) + (parseInt(strng.substring(position+1,strng.length))+1);
+//       }
+//   }
+// }
+
+// console.log(incrementString("foobar001"));
+// console.log(incrementString("foobar09"));
+
+function stat(strg) {
+    let timeArr = strg.split(", ");
+    let resultArr = [];
+    for (i=0; i<timeArr.length; i++) {
+        var result = timeArr[i].split("|");
+        resultArr.push(parseInt(result[0])*60*60 + parseInt(result[1])*60 + parseInt(result[2]));
+    }
+    let sorted = resultArr.sort(function(a, b){return a-b});
+    let range = sorted[resultArr.length-1] - sorted[0];
+    var sum, avg = 0;
+    if (resultArr.length) {
+        sum = resultArr.reduce(function(a,b) 
+        { return a + b });
+        avg = sum/resultArr.length;
+    }
+    let mean;
+    if (resultArr.length%2!==0) {
+        mean = resultArr[Math.floor(resultArr.length/2)];
+    }
+    else {
+        mean = (resultArr[(resultArr.length/2)] + resultArr[(resultArr.length/2)-1])/2;
+    }
+    function conversion(time) {
+        var date = new Date(null);
+        date.setSeconds(time); // specify value for SECONDS here
+        var result = date.toISOString().substr(11, 8);
+        return result.split(":").join("|");
+    }
+
+    return "Range: " + conversion(range) + " Average: " + conversion(avg) + " Median: " + conversion(mean);
 }
 
-console.log(incrementString("foobar001"));
-console.log(incrementString("foobar09"));
+console.log(stat("02|15|59, 2|47|16, 02|17|20, 2|32|34, 2|32|34, 2|17|17"));
+
+console.log("Range: 00|31|17 Average: 02|27|10 Median: 02|24|57");
+
 
         </script>
 
