@@ -40,8 +40,145 @@
         return "Yes";
     }
 
-    console.log(tickets([25, 25, 50, 50]), "Yes");
-    console.log(tickets([25, 100]), "No");    
+    // console.log(tickets([25, 25, 50, 50]), "Yes");
+    // console.log(tickets([25, 100]), "No");    
+
+Math.round = function(number) {
+    if (number%1===0)
+        { return number } 
+    else {
+        var parts = (number.toString()).split(".");
+        console.log(parts);
+        if (parts[1].slice(0,1) < 5 ) {
+            return parts[0];
+        }
+        else {
+            return parts[0] + 1;
+        }
+    }
+};
+
+Math.ceil = function(number) {
+    if (number%1===0)
+        { return number }
+    else {
+        var parts = (number.toString()).split(".")
+        return parts[0] + 1;
+    }
+};
+
+Math.floor = function(number) {
+    if (number%1===0)
+        { return number }
+    else {
+        var parts = (number.toString()).split(".")
+        return parts[0];
+    }
+};
+
+// console.log(Math.round(0.4));
+// console.log(Math.round(0.5));
+// console.log(Math.ceil(0.4));
+// console.log(Math.ceil(0.5));
+// console.log(Math.floor(0.4));
+// console.log(Math.floor(0.5));
+
+function zero(num) {
+    if (!num) {
+        return 0;
+    }
+    else {
+        return Math.floor(eval(0 + num));
+    }
+}
+function one(num) {
+    if (!num) {
+        return 1;
+    }
+    else {
+        return Math.floor(eval(1 + num));
+    }
+}
+function two(num) {
+    if (!num) {
+        return 2;
+    }
+    else {
+        return Math.floor(eval(2 + num));
+    }
+}
+function three(num) {
+    if (!num) {
+        return 3;
+    }
+    else {
+        return Math.floor(eval(3 + num));
+    }
+}
+function four(num) {
+    if (!num) {
+        return 4;
+    }
+    else {
+        return Math.floor(eval(4 + num));
+    }
+}
+function five(num) {
+    if (!num) {
+        return 5;
+    }
+    else {
+        return Math.floor(eval("5" + num));
+    }
+}
+function six(num) {
+    if (!num) {
+        return 6;
+    }
+    else {
+        return Math.floor(eval(6 + num));
+    }
+}
+function seven(num) {
+    if (!num) {
+        return 7;
+    }
+    else {
+        return Math.floor(eval(7 + num));
+    }
+}
+function eight(num) {
+    if (!num) {
+        return 8;
+    }
+    else {
+        return Math.floor(eval(8 + num));
+    }
+}
+function nine(num) {
+    if (!num) {
+        return 9;
+    }
+    else {
+        return Math.floor(eval(9 + num));
+    }
+}
+
+function plus(a) {
+    return "+" + a;
+}
+function minus(a) {
+    return "-" + a;
+}
+function times(a) {
+    console.log("*" + a)
+    return "*" + a;
+}
+function dividedBy(a) {
+    return "/" + a;
+}
+
+console.log(seven(dividedBy(three())));
 
     </script>
 
