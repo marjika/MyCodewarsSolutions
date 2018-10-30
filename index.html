@@ -178,7 +178,76 @@ function dividedBy(a) {
     return "/" + a;
 }
 
-console.log(seven(dividedBy(three())));
+// console.log(seven(dividedBy(three())));
+function solequa(n) {
+  var answer = [];
+  var factors = [];
+  for (var j = 1; j <= n; j++) {
+        if (n % j == 0) {
+            factors.unshift(j);
+        }
+    }
+  for (var i =0; i<factors.length; i++) {
+    for (var y=0; y < n; y++) {
+        for (var x=0; x<n; x++) {
+            if ((x - 2*y)===factors[i]) {
+                var otherFactor = n/factors[i];
+                if ((x+2*y) === otherFactor) {
+                    answer.unshift([x,y]);
+                }
+            }
+        }
+      }
+   }
+	return answer;
+}
+
+// console.log(solequa(5), [[3, 1]]);
+
+function WhatIsTheTime(timeInMirror)
+{
+  var numbers = timeInMirror.split(":");
+  var first = parseInt(numbers[0]);
+  var second = parseInt(numbers[1]);
+  var seconds="";
+  if (second===0) {
+    seconds = "00";
+  }
+  else if (seconds >50) {
+    seconds = "0" + (60-second);
+  }
+  else {
+    seconds = (60-second);
+  }
+  if (second === 0) {
+    if (first===12) {
+      return "12:00";
+    }
+    else if (first < 10) {
+      return "0" + (12-first) + ":00"; 
+    }
+    else {
+      return (12-first) + ":00";
+    }
+  }
+  else if (first<11 && second!==0) {
+    if (first===1) {
+      return "10:" + seconds;
+    }
+    else {
+      return "0" + (11-first) + ":" + seconds;
+    }
+  }
+  else if (first === 11) {
+      return "12:" + seconds;
+  }
+  else if (first === 12) {
+      return "11:" + seconds;
+    }
+    
+}
+
+console.log(WhatIsTheTime("06:35"));
 
     </script>
 
