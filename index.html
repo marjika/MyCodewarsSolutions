@@ -29,7 +29,31 @@
             }
         }
 
-    console.log(iqTest("2 4 7 8 10"));
+    // console.log(iqTest("2 4 7 8 10"));
+
+function highestRank(arr){
+  var answerArr = [];
+  arr.sort();
+  var temp = [];
+  for (var i = 0; i<arr.length; i++) {
+    temp.push(arr[i]);
+    if ((i===arr.length-1) || arr[i] !== arr[i+1]) {
+        if (temp.length>answerArr.length) {
+            answerArr = temp;
+        }
+        else if (temp.length === answerArr.length) {
+            if (temp[0] > answerArr[0]) {
+                answerArr = temp;
+            }
+        }
+        temp = [];
+    }
+  }
+  return answerArr[0];
+}
+
+var arr = [12, 10, 8, 12, 7, 6, 4, 10, 12];
+console.log(highestRank(arr), 12);
 
     </script>
 
