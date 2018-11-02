@@ -52,8 +52,33 @@ function highestRank(arr){
   return answerArr[0];
 }
 
-var arr = [12, 10, 8, 12, 7, 6, 4, 10, 12];
-console.log(highestRank(arr), 12);
+//var arr = [12, 10, 8, 12, 7, 6, 4, 10, 12];
+//console.log(highestRank(arr), 12);
+
+var whatTimeIsIt = function(angle) {
+  var hour = 0;
+  var minutes = 0;
+  var fraction = 0;
+
+  if (angle<30) {
+      hour = 12;
+  }
+  else {
+      hour = parseInt(angle/30);
+  }
+  if (angle && hour) {
+      if (hour!==12 || angle>30) {
+        fraction = angle-hour*30;
+      }
+      else {
+          fraction = angle;
+      }
+      minutes = parseInt(fraction*2);      
+  }
+  return ('0' + hour).slice(-2) + ':' + ('0' + minutes).slice(-2);
+}
+
+console.log(whatTimeIsIt(380), "09:00")
 
     </script>
 
