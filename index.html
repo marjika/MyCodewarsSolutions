@@ -10,137 +10,75 @@
 
     <script>
 
-        function iqTest(numbers){
-            let answer = [];
-            const arr = numbers.split(" ");
-            arr.forEach(function(element) {
-            if ((parseInt(element)%2)===0) {
-                answer.push(element)
-                console.log(answer);
-            }
-        });
-            if (answer.length === 1) {
-                return arr.indexOf(answer[0]) + 1;
+    //Additionless addition
+    add = (a, b) => {
+        if (b === 0) {
+            return a;
+        } else {
+            return add(a ^ b, (a & b) << 1)
+        }
+    };
+
+    //Advanced Pig Latin
+    function translate(sentence) {
+        const wordArr = sentence.split(" ");
+        answer = "";
+        for (var i = 0; i<wordArr.length; i++) {
+            if (wordArr[i].slice(wordArr[i].length-1, wordArr[i].length).match(/[a-z]/i)) {
+                if (wordArr[i].slice(0, 1).match(/[aeiouAEIOU]/i)) {
+                    answer = answer + wordArr[i] + "way ";
+                }
+                else if (wordArr[i].slice(0,1)===(wordArr[i].slice(0,1)).toUpperCase()) {
+                    answer = answer + (wordArr[i].slice(1,2)).toUpperCase() + wordArr[i].slice(2,wordArr[i].length)+ (wordArr[i].slice(0,1)).toLowerCase() + "ay ";
+                }
+                else {
+                    answer = answer + wordArr[i].slice(1,wordArr[i].length) + (wordArr[i].slice(0,1)).toLowerCase() + "ay ";
+                }
             }
             else {
-                const odd = arr.filter(number => parseInt(number)%2===1);
-                console.log(odd, arr);
-                return arr.indexOf(odd[0]) + 1;
+                var punctuation = [];
+                for (var j=0; j<wordArr[i].length; j++) {
+                    if ((wordArr[i])[j].match(/[^a-zA-Z]/i)) {
+                        punctuation.push(wordArr[j])
+                    }
+                }
+                if (wordArr[i].slice(0,1)===(wordArr[i].slice(0,1)).toUpperCase()) {
+                    answer = answer + (wordArr[i].slice(1,2)).toUpperCase() + wordArr[i].slice(2,wordArr[i].length-punctuation.length) + (wordArr[i].slice(0,1)).toLowerCase() + "ay" + punctuation.join("") + " ";
+                }
+                else {
+                    answer = answer + wordArr[i].slice(1,wordArr[i].length-punctuation.length) + (wordArr[i].slice(0,1)).toLowerCase() + "ay" + punctuation.join("") + " ";
+                }
             }
         }
+        return answer.slice(0,answer.length-1);
+    };
 
-    // console.log(iqTest("2 4 7 8 10"));
+    //console.log(translate('Pizza? Yes Please!!'), 'Izzapay? Esyay Easeplay!!')
 
-function highestRank(arr){
-  var answerArr = [];
-  arr.sort();
-  var temp = [];
-  for (var i = 0; i<arr.length; i++) {
-    temp.push(arr[i]);
-    if ((i===arr.length-1) || arr[i] !== arr[i+1]) {
-        if (temp.length>answerArr.length) {
-            answerArr = temp;
+    //Sum the Tree
+    // return the sum of all values in the tree, including the root
+
+     function sumTheTreeValues(root){
+        var answer = 0;
+        if (root == null) {
+            return 0;
         }
-        else if (temp.length === answerArr.length) {
-            if (temp[0] > answerArr[0]) {
-                answerArr = temp;
+        else {
+            answer = root.value;
+            if (root.left != null) {
+                answer = answer + sumTheTreeValues(root.left);
+            }
+            if (root.right != null) {
+                answer = answer + sumTheTreeValues(root.right);
             }
         }
-        temp = [];
+        return answer;
     }
-  }
-  return answerArr[0];
-}
 
-//var arr = [12, 10, 8, 12, 7, 6, 4, 10, 12];
-//console.log(highestRank(arr), 12);
-//Clocky Mc Clock-Face
-var whatTimeIsIt = function(angle) {
-  var hour = 0;
-  var minutes = 0;
-  var fraction = 0;
-
-  if (angle<30) {
-      hour = 12;
-  }
-  else {
-      hour = parseInt(angle/30);
-  }
-  if (angle && hour) {
-      if (hour!==12 || angle>30) {
-        fraction = angle-hour*30;
-      }
-      else {
-          fraction = angle;
-      }
-      minutes = parseInt(fraction*2);      
-  }
-  return ('0' + hour).slice(-2) + ':' + ('0' + minutes).slice(-2);
-}
-
-// console.log(whatTimeIsIt(380), "09:00")
-
-//Resistor color codes
-function decodeResistorColors(bands) {
-    const colors = bands.split(" ");
-    var resistor = [];
-    var tolerance = "";
-    var num = 0;
-    for (var i=0; i<3; i++) {
-        if (colors[i] === "black") {
-            resistor.push("0");
-        }
-        else if (colors[i] === "brown") {
-            resistor.push("1");
-        }
-        else if (colors[i] === "red") {
-            resistor.push("2");
-        }
-        else if (colors[i] === "orange") {
-            resistor.push("3");
-        }
-        else if (colors[i] === "yellow") {
-            resistor.push("4");
-        }
-        else if (colors[i] === "green") {
-            resistor.push("5");
-        }
-        else if (colors[i] === "blue") {
-            resistor.push("6");
-        }
-        else if (colors[i] === "violet") {
-            resistor.push("7");
-        }
-        else if (colors[i] === "gray") {
-            resistor.push("8");
-        }
-        else if (colors[i] === "white") {
-            resistor.push("9");
-        }
-    }
-    if (!colors[3]) {
-        tolerance = "20%";
-    }
-    else if (colors[3]==="gold") {
-        tolerance = "5%"
-    }
-    else {
-        tolerance = "10%";
-    } 
-    num = parseInt(resistor[0] +  resistor[1]) * Math.pow(10, parseInt(resistor[2]));
-    
-    if (num<1000) {
-        return num + " ohms, " + tolerance;
-    }
-    else if (num<1000000) {
-        return num/1000 + "k ohms, " + tolerance;
-    }
-    else {
-        return num/1000000 + "M ohms, " + tolerance;
-    }
-}
-
-console.log(decodeResistorColors("yellow violet red gold"), "4.7k ohms, 5%")
+    var simpleNode = {value: 10, left: {value: 1, left: null, right: null}, right: {value: 2, left: null, right: null}};
+    console.log(sumTheTreeValues(simpleNode), 13)
+    var unbalancedNode = {value: 11, left: {value: 0, left: null, right: null}, right: {value: 0, left: null, right: {value: 1, left: null, right: null}}};
+    console.log(sumTheTreeValues(unbalancedNode), 12)
 
     </script>
 
