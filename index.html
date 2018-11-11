@@ -75,10 +75,23 @@
         return answer;
     }
 
-    var simpleNode = {value: 10, left: {value: 1, left: null, right: null}, right: {value: 2, left: null, right: null}};
-    console.log(sumTheTreeValues(simpleNode), 13)
-    var unbalancedNode = {value: 11, left: {value: 0, left: null, right: null}, right: {value: 0, left: null, right: {value: 1, left: null, right: null}}};
-    console.log(sumTheTreeValues(unbalancedNode), 12)
+    // var simpleNode = {value: 10, left: {value: 1, left: null, right: null}, right: {value: 2, left: null, right: null}};
+    // console.log(sumTheTreeValues(simpleNode), 13)
+    // var unbalancedNode = {value: 11, left: {value: 0, left: null, right: null}, right: {value: 0, left: null, right: {value: 1, left: null, right: null}}};
+    // console.log(sumTheTreeValues(unbalancedNode), 12)
+
+        //Is Number prime?
+        function isPrime(num) {
+        var number = Math.abs(num);
+            for (var i = 2; i < number; i++){
+            if (number%i === 0) {
+                return false;
+            }
+        }
+        return number > 1;
+        }
+
+        console.log(isPrime(9));
 
     </script>
 
