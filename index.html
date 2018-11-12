@@ -91,7 +91,34 @@
         return number > 1;
         }
 
-        console.log(isPrime(9));
+        //console.log(isPrime(9));
+
+//Backspaces in string
+    function clean_string(s) {
+        if (!s.includes("#")) {
+            return s;
+        }
+        else {
+            var answer = [];
+            backspace = 0;
+            for(var i=s.length; i>=0; i--) {
+                if (s[i]==="#") {
+                    backspace++;
+                }
+                else if (backspace>0) {
+                    backspace--;
+                }
+                else {
+                    answer.unshift(s[i]);
+                }
+            } 
+           return answer.join("");
+        }    
+    };
+
+    console.log(clean_string('abcdef'), 'abcdef');
+    console.log(clean_string('abc#d##c'), "ac");
+    console.log(clean_string('abc####d##c#'), "");
 
     </script>
 
