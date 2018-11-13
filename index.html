@@ -10,115 +10,24 @@
 
     <script>
 
-    //Additionless addition
-    add = (a, b) => {
-        if (b === 0) {
-            return a;
-        } else {
-            return add(a ^ b, (a & b) << 1)
-        }
-    };
-
-    //Advanced Pig Latin
-    function translate(sentence) {
-        const wordArr = sentence.split(" ");
-        answer = "";
-        for (var i = 0; i<wordArr.length; i++) {
-            if (wordArr[i].slice(wordArr[i].length-1, wordArr[i].length).match(/[a-z]/i)) {
-                if (wordArr[i].slice(0, 1).match(/[aeiouAEIOU]/i)) {
-                    answer = answer + wordArr[i] + "way ";
-                }
-                else if (wordArr[i].slice(0,1)===(wordArr[i].slice(0,1)).toUpperCase()) {
-                    answer = answer + (wordArr[i].slice(1,2)).toUpperCase() + wordArr[i].slice(2,wordArr[i].length)+ (wordArr[i].slice(0,1)).toLowerCase() + "ay ";
-                }
-                else {
-                    answer = answer + wordArr[i].slice(1,wordArr[i].length) + (wordArr[i].slice(0,1)).toLowerCase() + "ay ";
-                }
-            }
-            else {
-                var punctuation = [];
-                for (var j=0; j<wordArr[i].length; j++) {
-                    if ((wordArr[i])[j].match(/[^a-zA-Z]/i)) {
-                        punctuation.push(wordArr[j])
-                    }
-                }
-                if (wordArr[i].slice(0,1)===(wordArr[i].slice(0,1)).toUpperCase()) {
-                    answer = answer + (wordArr[i].slice(1,2)).toUpperCase() + wordArr[i].slice(2,wordArr[i].length-punctuation.length) + (wordArr[i].slice(0,1)).toLowerCase() + "ay" + punctuation.join("") + " ";
-                }
-                else {
-                    answer = answer + wordArr[i].slice(1,wordArr[i].length-punctuation.length) + (wordArr[i].slice(0,1)).toLowerCase() + "ay" + punctuation.join("") + " ";
-                }
-            }
-        }
-        return answer.slice(0,answer.length-1);
-    };
-
-    //console.log(translate('Pizza? Yes Please!!'), 'Izzapay? Esyay Easeplay!!')
-
-    //Sum the Tree
-    // return the sum of all values in the tree, including the root
-
-     function sumTheTreeValues(root){
-        var answer = 0;
-        if (root == null) {
-            return 0;
-        }
-        else {
-            answer = root.value;
-            if (root.left != null) {
-                answer = answer + sumTheTreeValues(root.left);
-            }
-            if (root.right != null) {
-                answer = answer + sumTheTreeValues(root.right);
-            }
-        }
-        return answer;
-    }
-
-    // var simpleNode = {value: 10, left: {value: 1, left: null, right: null}, right: {value: 2, left: null, right: null}};
-    // console.log(sumTheTreeValues(simpleNode), 13)
-    // var unbalancedNode = {value: 11, left: {value: 0, left: null, right: null}, right: {value: 0, left: null, right: {value: 1, left: null, right: null}}};
-    // console.log(sumTheTreeValues(unbalancedNode), 12)
-
-        //Is Number prime?
-        function isPrime(num) {
-        var number = Math.abs(num);
-            for (var i = 2; i < number; i++){
-            if (number%i === 0) {
-                return false;
-            }
-        }
-        return number > 1;
-        }
-
-        //console.log(isPrime(9));
-
-//Backspaces in string
-    function clean_string(s) {
-        if (!s.includes("#")) {
-            return s;
-        }
-        else {
+        //Data Reverse
+        function dataReverse(data) {
             var answer = [];
-            backspace = 0;
-            for(var i=s.length; i>=0; i--) {
-                if (s[i]==="#") {
-                    backspace++;
+            for (var i=0; i<data.length; i++) {
+                console.log(i)
+                if (((i+1)%8)==0) {   
+                    var byte = [];  
+                    console.log("here", i)              
+                    byte.push(data[i-7], data[i-6], data[i-5], data[i-4], data[i-3], data[i-2], data[i-1], data[i]);
+                    answer.unshift(byte);
                 }
-                else if (backspace>0) {
-                    backspace--;
-                }
-                else {
-                    answer.unshift(s[i]);
-                }
-            } 
-           return answer.join("");
-        }    
-    };
+            }
+            return [].concat(...answer);
+        }
 
-    console.log(clean_string('abcdef'), 'abcdef');
-    console.log(clean_string('abc#d##c'), "ac");
-    console.log(clean_string('abc####d##c#'), "");
+    const data1 = [1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,1,0,1,0,1,0]
+    const data2 = [1,0,1,0,1,0,1,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1]
+    console.log(dataReverse(data1),data2)
 
     </script>
 
