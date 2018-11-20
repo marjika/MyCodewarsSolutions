@@ -31,6 +31,13 @@
 
 //Word Segmentation: MaxMatch
 function maxMatch(sentence){
+  function splitValue(value, index) {
+    var arr=[]
+    arr.push(value.substring(0, index));
+    arr.push(value.substring(index));
+    return arr;
+}
+
   var answer = [];
   if (sentence.length===0 || !sentence) {
     return answer;
@@ -42,8 +49,8 @@ function maxMatch(sentence){
     answer.push(sentence);
   }
   else {
-    for (var i=sentence.length+1; i>0; i--) {
-      var arr = sentence.split(sentence[i]);
+    for (var i=sentence.length; i>0; i--) {
+      var arr = splitValue(sentence, i);
       if (VALID_WORDS.has(arr[0])) {
           answer.push(arr[0]);
           return answer = answer.concat(...maxMatch(sentence.slice(i)));
@@ -56,9 +63,6 @@ function maxMatch(sentence){
     }
   return answer;
 }
-
-//maxMatch("goodluck");
-
 //Recursion Practice
 function stringLength(str) {
     if (!str) {
