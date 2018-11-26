@@ -27,11 +27,33 @@ function beggars(values, n){
   return answer;
 }
 
-console.log(beggars([1,2,3,4,5],1),[15]);
-console.log(beggars([1,2,3,4,5],2),[9,6]);
-console.log(beggars([1,2,3,4,5],3),[5,7,3]);
-console.log(beggars([1,2,3,4,5],6),[1,2,3,4,5,0]);
-console.log(beggars([1,2,3,4,5],0),[]);
+// console.log(beggars([1,2,3,4,5],1),[15]);
+// console.log(beggars([1,2,3,4,5],2),[9,6]);
+// console.log(beggars([1,2,3,4,5],3),[5,7,3]);
+// console.log(beggars([1,2,3,4,5],6),[1,2,3,4,5,0]);
+// console.log(beggars([1,2,3,4,5],0),[]);
+
+//Mongodb ObjectID
+var Mongo = {
+    'isValid' : function(s){
+      var myregexp = /^[0-9a-f]{24}$/;
+      if (typeof s==="string" && s.match(myregexp)) {
+        return true;
+      } else {
+        return false
+      }
+    },
+    'getTimestamp' : function(s){
+      if (Mongo.isValid(s)) {
+          var timestamp = s.toString().substring(0,8);
+          return new Date( parseInt( timestamp, 16 ) * 1000 );
+          }
+      else { return false }
+      }
+}
+
+console.log(Mongo.isValid("112345679065574883030833"));
+console.log(Mongo.getTimestamp("112345679065574883030833"));
 
     </script>
 
