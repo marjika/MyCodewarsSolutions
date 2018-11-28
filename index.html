@@ -52,8 +52,48 @@ var Mongo = {
       }
 }
 
-console.log(Mongo.isValid("112345679065574883030833"));
-console.log(Mongo.getTimestamp("112345679065574883030833"));
+//console.log(Mongo.isValid("112345679065574883030833"));
+//console.log(Mongo.getTimestamp("112345679065574883030833"));
+
+//All Star Code Challenge #19
+
+var sloganMaker = function(array){
+  var sorted = array.sort();
+  var unique = [];
+  for (var i=0; i<sorted.length; i++) {
+     if (sorted[i]!==sorted[i+1]) {
+       unique.push(sorted[i]);
+     }
+   }
+    function getAllPermutations(words) {
+        var results = [];
+
+        if (words.length === 1) {
+            results.push(words);
+            return results;
+        }
+        for (var i = 0; i < words.length; i++) {
+            var firstWord = words[i];
+            var wordsLeft = words.filter(item => item !== words[i])
+            var innerPermutations = getAllPermutations(wordsLeft);
+            for (var j = 0; j < innerPermutations.length; j++) {
+                results.push(firstWord + " " + innerPermutations[j]);
+            }
+        }
+        return results;
+    }
+    if (unique) {
+        return getAllPermutations(unique);
+    }
+    else {
+        return [];
+    }
+}
+
+var answer = [ 'super hot guacamole',  'super guacamole hot',  'hot super guacamole',  'hot guacamole super',  'guacamole super hot',  'guacamole hot super' ];
+console.log(sloganMaker(["testing", "testing", "testing"]));
+console.log(sloganMaker(["super", "hot", "super", "guacamole"]));
+console.log(answer);
 
     </script>
 
