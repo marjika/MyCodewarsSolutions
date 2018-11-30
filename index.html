@@ -90,10 +90,34 @@ var sloganMaker = function(array){
     }
 }
 
-var answer = [ 'super hot guacamole',  'super guacamole hot',  'hot super guacamole',  'hot guacamole super',  'guacamole super hot',  'guacamole hot super' ];
-console.log(sloganMaker(["testing", "testing", "testing"]));
-console.log(sloganMaker(["super", "hot", "super", "guacamole"]));
-console.log(answer);
+// var answer = [ 'super hot guacamole',  'super guacamole hot',  'hot super guacamole',  'hot guacamole super',  'guacamole super hot',  'guacamole hot super' ];
+// console.log(sloganMaker(["testing", "testing", "testing"]));
+// console.log(sloganMaker(["super", "hot", "super", "guacamole"]));
+// console.log(answer);
+
+//Fizzbuzz
+f=n=> {
+  switch(true) {
+    case (n%15===0):
+      return "fizzbuzz"
+    case (n%5===0):
+      return "buzz"
+    case (n%3===0):
+      return "fizz"
+    default:
+      return n
+  }
+}
+
+//Make Looper
+function makeLooper(str) {
+  this.str = function() {
+      console.log(str);
+  }
+}
+
+var abc = makeLooper('abc');
+console.log(abc());
 
     </script>
 
