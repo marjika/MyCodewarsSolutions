@@ -111,13 +111,21 @@ f=n=> {
 
 //Make Looper
 function makeLooper(str) {
-  this.str = function() {
-      console.log(str);
-  }
+    return (function(n) {
+        return function() {
+            n += 1;
+            if (n<str.length) {
+                return str[n];
+            }
+            else {
+                return str[0];
+            }
+        }
+    }(-1));
 }
 
 var abc = makeLooper('abc');
-console.log(abc());
+console.log(abc(), abc(), abc(), abc());
 
     </script>
 
