@@ -42,7 +42,59 @@
         array = [[1,2,3],
          [8,9,4],
          [7,6,5]]
-        console.log(snail(array), "[1,2,3,4,5,6,7,8,9]");
+        //console.log(snail(array), "[1,2,3,4,5,6,7,8,9]");
+
+        //Weight for Weight
+        function orderWeight(strng) {
+            var weights = [];
+            function sortNumber(a,b) {
+                return a - b;
+            }
+            if (strng.length > 0) {
+                var nums = strng.split(" ");
+                var answer = [];
+                for (var i=0; i< nums.length; i++) {
+                    var numWeight = 0;
+                    for (var j=0; j<nums[i].length; j++) {
+                        numWeight = numWeight + parseInt(nums[i][j]);
+                    }
+                    answer.push(numWeight);
+                }
+                var sorted = [...answer];
+                sorted.sort(sortNumber);
+                console.log(answer, sorted);
+                var index = 0;
+                while (index<nums.length) { 
+                    for (var i = 0; i<answer.length; i++) {
+                        if (sorted[index] !== sorted[index+1]) {
+                            if (sorted[index]===answer[i]) {
+                                weights.push(parseInt(nums[i]));
+                                index++;
+                            }
+                        }
+                        else {
+                            var same = sorted[index];
+                            var temp = [];
+                            for (var j = 0; j<answer.length; j++) {
+                                if (answer[j] === same) {
+                                    temp.push(parseInt(nums[j]));
+                                }
+                            }
+                            temp.sort();
+                            index = index + temp.length;
+                            weights= [...weights, ...temp];
+                        }
+                    }
+                }
+                return weights.toString(",");
+            }
+            else {
+                return [];
+            }
+        }
+
+        console.log(orderWeight("56 65 74 100 99 68 86 180 90"), "100 180 90 56 65 74 68 86 99");
+        console.log(orderWeight("103 123 4444 99 2000"), "2000 103 123 4444 99");
 
     </script>
 
