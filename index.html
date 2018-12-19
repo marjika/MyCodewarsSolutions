@@ -93,8 +93,51 @@
             }
         }
 
-        console.log(orderWeight("56 65 74 100 99 68 86 180 90"), "100 180 90 56 65 74 68 86 99");
-        console.log(orderWeight("103 123 4444 99 2000"), "2000 103 123 4444 99");
+        //console.log(orderWeight("56 65 74 100 99 68 86 180 90"), "100 180 90 56 65 74 68 86 99");
+        //console.log(orderWeight("103 123 4444 99 2000"), "2000 103 123 4444 99");
+
+    //Basic Nico variation
+    function nico  (key, message)  {
+        var arr = key.split('');
+        var sorted = key.split('').sort();
+        var num = [];
+        for (var i=0; i<arr.length; i++) {
+            for (var j=0; j<sorted.length; j++) {
+                if (arr[i]===sorted[j]) {
+                    num.push(j);
+                }
+            }
+        }
+        var coded = message.split('');
+        var chart = [];
+        for (var i = 0; i< Math.ceil(message.length/key.length); i++) {
+            var row = [];
+            for (var j=0; j< key.length; j++) {
+                if (coded[(i*key.length)+j]) {
+                    row.push(coded[(i*key.length)+j]);
+                }
+                else {
+                    row.push(" ");
+                }
+            }
+            chart.push(row);
+        }
+        var answer = "";
+        for (var k=0; k<chart.length; k++) {
+            var index = 0;
+            while (index<num.length) {
+                for (l=0; l<num.length; l++) {
+                    if (index===num[l]) {
+                        answer = answer + chart[k][l];
+                        index++;
+                    }
+                }
+            }
+        }
+        return answer;
+    }
+
+    console.log(nico("crazy", "secretinformation"),"cseerntiofarmit on  " )
 
     </script>
 
