@@ -10,134 +10,41 @@
 
     <script>
 
-        //Snail sort
-        snail = function(array) {
-            let answer = [];
-            if (array.length===1) {
-                return array[0];
-            }
-            else if (array.length<1) {
-                return [];
-            }
-            else {
-                answer = [...array[0]];
-                array.shift();
-                for (var i=0; i<array.length; i++) {
-                    answer.push(array[i][array[i].length-1]);
-                    array[i].pop();
+        //Rot13
+        function rot13(message){
+            var res = message.split("");
+            var answer = "";
+            var lows = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+            var caps = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+            res.forEach(element => {
+                if (lows.includes(element)) {
+                    if (lows.indexOf(element)<13) {
+                        answer = answer + lows[lows.indexOf(element)+13];
+                    }
+                    else {
+                        answer = answer + lows[lows.indexOf(element)-13];
+                    }
                 }
-                for (var j=array[array.length-1].length-1;j>-1;j--) {
-                    answer.push(array[array.length-1][j]);
+                if (caps.includes(element)) {
+                    if (caps.indexOf(element)<13) {
+                        answer = answer + caps[caps.indexOf(element)+13];
+                    }
+                    else {
+                        answer = answer + caps[caps.indexOf(element)-13];
+                    }
                 }
-                array.pop();
-                for (var k=array.length-1; k>-1; k--) {
-                    answer.push(array[k][0]);
-                    array[k].shift();
+                if (element===" ") {
+                    answer = answer + " ";
                 }
-                answer.push(...snail(array));
-            }
+                if (!lows.includes(element) && !caps.includes(element) && element!==" ") {
+                    answer = answer + element;
+                }                
+            });
+            console.log(res);
             return answer;
         }
 
-        array = [[1,2,3],
-         [8,9,4],
-         [7,6,5]]
-        //console.log(snail(array), "[1,2,3,4,5,6,7,8,9]");
-
-        //Weight for Weight
-        function orderWeight(strng) {
-            var weights = [];
-            function sortNumber(a,b) {
-                return a - b;
-            }
-            if (strng.length > 0) {
-                var nums = strng.split(" ");
-                var answer = [];
-                for (var i=0; i< nums.length; i++) {
-                    var numWeight = 0;
-                    for (var j=0; j<nums[i].length; j++) {
-                        numWeight = numWeight + parseInt(nums[i][j]);
-                    }
-                    answer.push(numWeight);
-                }
-                var sorted = [...answer];
-                sorted.sort(sortNumber);
-                console.log(answer, sorted);
-                var index = 0;
-                while (index<nums.length) { 
-                    for (var i = 0; i<answer.length; i++) {
-                        if (sorted[index] !== sorted[index+1]) {
-                            if (sorted[index]===answer[i]) {
-                                weights.push(parseInt(nums[i]));
-                                index++;
-                            }
-                        }
-                        else {
-                            var same = sorted[index];
-                            var temp = [];
-                            for (var j = 0; j<answer.length; j++) {
-                                if (answer[j] === same) {
-                                    temp.push(parseInt(nums[j]));
-                                }
-                            }
-                            temp.sort();
-                            index = index + temp.length;
-                            weights= [...weights, ...temp];
-                        }
-                    }
-                }
-                return weights.toString(",");
-            }
-            else {
-                return [];
-            }
-        }
-
-        //console.log(orderWeight("56 65 74 100 99 68 86 180 90"), "100 180 90 56 65 74 68 86 99");
-        //console.log(orderWeight("103 123 4444 99 2000"), "2000 103 123 4444 99");
-
-    //Basic Nico variation
-    function nico  (key, message)  {
-        var arr = key.split('');
-        var sorted = key.split('').sort();
-        var num = [];
-        for (var i=0; i<arr.length; i++) {
-            for (var j=0; j<sorted.length; j++) {
-                if (arr[i]===sorted[j]) {
-                    num.push(j);
-                }
-            }
-        }
-        var coded = message.split('');
-        var chart = [];
-        for (var i = 0; i< Math.ceil(message.length/key.length); i++) {
-            var row = [];
-            for (var j=0; j< key.length; j++) {
-                if (coded[(i*key.length)+j]) {
-                    row.push(coded[(i*key.length)+j]);
-                }
-                else {
-                    row.push(" ");
-                }
-            }
-            chart.push(row);
-        }
-        var answer = "";
-        for (var k=0; k<chart.length; k++) {
-            var index = 0;
-            while (index<num.length) {
-                for (l=0; l<num.length; l++) {
-                    if (index===num[l]) {
-                        answer = answer + chart[k][l];
-                        index++;
-                    }
-                }
-            }
-        }
-        return answer;
-    }
-
-    console.log(nico("crazy", "secretinformation"),"cseerntiofarmit on  " )
+        console.log(rot13("lmnop"), "grfg")
 
     </script>
 
