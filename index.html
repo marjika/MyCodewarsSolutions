@@ -69,30 +69,60 @@
         // console.log(domainName("http://google.com"), "google");
         // console.log(domainName("www.xakep.ru"), "xakep");
 
-        //Bird Mountain
+        //Bird Mountain--needs work, come back to it
         var peakHeight = function(mountain) {
-  var width = 0;
-  var temp = 0;
-  
-  mountain[[Math.floor(mountain.length/2)]].forEach(function(element) {
-    if (element === "^") {
-      width++;
-    }
-  });
-  
-  if ((mountain.length%2)===0) {
-     mountain[[Math.ceil(mountain.length/2)]].forEach(function(element) {
-        if (element === "^") {
-          temp++;
+            var width = 0;
+            var temp = 0;
+            
+            mountain[[Math.floor(mountain.length/2)]].forEach(function(element) {
+                if (element === "^") {
+                width++;
+                }
+            });
+            
+            if ((mountain.length%2)===0) {
+                mountain[[Math.ceil(mountain.length/2)]].forEach(function(element) {
+                    if (element === "^") {
+                    temp++;
+                    }
+                });
+                }
+            if (temp<width && temp!==0) {
+                width = temp;
+            }
+            console.log(width, temp);
+            return Math.ceil(width/2);
         }
-      });
+
+    //Buddy
+    function buddy(start,limit) {
+        var temp = [];
+
+        findDivisors = (num) => {
+            let divs = [];
+            for (var i = 1; i<=num/2; i++) {
+                if (num%i===0) {
+                    divs.push(i);
+                }
+            }
+            return divs.reduce((a, b) => a + b, 0);
+        }
+
+        for (var i=start; i<=limit; i++) {
+            var sum = (findDivisors(i)-1);
+            if ((findDivisors(sum)-1)===i) {
+                temp.push(i, sum);
+                return temp;
+            }
+            
+        }
+        
+        return "Nothing";
     }
-  if (temp<width && temp!==0) {
-    width = temp;
-  }
-  console.log(width, temp);
-  return Math.ceil(width/2);
-}
+
+    console.log(buddy(48, 50) + " returns [48, 75]");
+    console.log(buddy(2382, 3679) + " returns 'Nothing'");
+
 
 
     </script>
