@@ -99,26 +99,30 @@
         var temp = [];
 
         findDivisors = (num) => {
-            let divs = [];
-            for (var i = 1; i<=num/2; i++) {
+        //var fourth = Math.floor((num/2)/2);
+        let divs = 1;
+        let i, j;
+        num % 2 === 0 ? (i = 2, j = 1) : (i = 3, j = 2);
+            for (i; i <= num/2; i += j) {
                 if (num%i===0) {
-                    divs.push(i);
+                    divs = divs + i;
                 }
             }
-            return divs.reduce((a, b) => a + b, 0);
+            return divs;
         }
 
-        for (var i=start; i<=limit; i++) {
-            var sum = (findDivisors(i)-1);
-            if ((findDivisors(sum)-1)===i) {
-                temp.push(i, sum);
-                return temp;
-            }
-            
-        }
-        
+        for (var j=start; j<=limit; j++) {
+            var sum = (findDivisors(j)-1);
+            if (sum>j) {            
+                if ((findDivisors(sum)-1)===j) {
+                    temp.push(j, sum);
+                    return temp;
+                }
+            }        
+        }    
         return "Nothing";
     }
+       
 
     console.log(buddy(48, 50) + " returns [48, 75]");
     console.log(buddy(2382, 3679) + " returns 'Nothing'");
