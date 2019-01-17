@@ -133,12 +133,12 @@
     // console.log(buddy(2382, 3679) + " returns 'Nothing'");
 
     //Rainfall
-    function mean(town, strng) {
+  function mean(town, strng) {
       var meanTotal = 0;
       var result = (strng.split("\n")).filter(word => word.startsWith(town));
       console.log(town, strng);
-      if (result === undefined || result.length == 0) {
-          return "-1";
+      if (result === undefined || result.length <= 0) {
+          return -1.0;
       }
       else {
           var rain = (result.toString()).split(",");
@@ -147,7 +147,7 @@
               meanTotal = meanTotal + parseFloat(num);
           })
           if (meanTotal === 0) {
-            return -1;
+            return -1.0;
             }
             else {
               return (meanTotal/rain.length);
@@ -156,20 +156,20 @@
   }
 
   function variance(town, strng) {
-      var mean0 = mean(town, strng);
       var varianceTot = 0;
       const result = (strng.split("\n")).filter(word => word.startsWith(town));
-      if (result === undefined || result.length == 0) {
-          return "-1";
+      if (result === undefined || result.length <= 0) {
+          return "-1.0";
       }
       else {
+          var mean0 = mean(town, strng);
           var rain = (result.toString()).split(",");
           rain.forEach(function(element) {
-              var num = (element.toString()).match(/\d*\.?\d*$/)[0];
+              var num = parseFloat((element.toString()).match(/\d*\.?\d*$/)[0]);
               varianceTot = varianceTot + ((num-mean0)*(num-mean0));
           })
           if (varianceTot === 0) {
-            return -1;
+            return -1.0;
             }
             else {
               return (varianceTot/rain.length);
@@ -202,8 +202,8 @@
     const towns = ["Rome", "London", "Paris", "NY", "Vancouver", "Sydney", "Bangkok", "Tokyo",
                "Beijing", "Lima", "Montevideo", "Caracas", "Madrid", "Berlin"]
 
-    console.log(mean("London", data), 51.199999999999996);
-    console.log(variance("London", data), 57.42833333333374);
+    console.log(mean("Rome", data), 51.199999999999996);
+    console.log(variance("Montevideo", data), 57.42833333333374);
 
 
     </script>
