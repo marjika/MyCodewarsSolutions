@@ -13,14 +13,10 @@
     <script>
         //Tank Truck
         function tankvol(h, d, vt) {
-            var volume = 0;
-            var totalLength = (vt*2)/(Math.PI*d);
-            var angle = Math.acos(((d/2)-h)/(d/2));
-            var degrees = (angle*180/Math.PI)*2;
-            var piePiece = vt*(360-degrees)/360;
-            var b = Math.tan(degrees-180)*((d/2)-h);
-            var arc = piePiece - (b*((d/2)-h)/2);
-            return (vt - arc);
+            var r = d/2;
+            var totalLength = (vt)/(Math.PI*Math.pow(r, 2));
+            volume = totalLength*((Math.pow(r,2)*Math.acos((r-h)/r)-(r-h)*Math.pow((2*h*r)-(h*h), .5)));
+            return Math.floor(volume);
         }
 
         console.log(tankvol(5, 7, 3848), 2940);
