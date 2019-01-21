@@ -25,32 +25,31 @@
         //idBestUsers
         function idBestUsers(...data) {
             var users = [];
-            var placeholder;
+            var index = 0;
             data.forEach(arr => {
                 for (var i=0; i<arr.length; i++) {
                     console.log(arr[i],users);
                     const value = users.filter( element => element[0] === arr[i]);
+                    console.log(value,index);
                     if (value.length===0) {
-                        console.log("here");
-                        users.push([arr[i], 1]);
+                        users.push([arr[i], 1, index]);
+                        index++;
                     }
                     else {
-                        console.log("there",value);
-                        var index = users.indexOf(value);
-                        console.log(index);
-                        users[index][1] = users[index] + 1;
+                        var ind = value[0][2];
+                        console.log(value, ind);
+                        users[ind][1] = users[ind][1] + 1;
                     }
                 }
             });
-
-
             return users;
         }
 
         a1 = ['A042', 'B004', 'A025', 'A042', 'C025'];
         a2 = ['B009', 'B040', 'B004', 'A042', 'A025', 'A042'];
+        a3 = ['A042', 'B004', 'A025', 'A042', 'C025', 'B009', 'B040', 'B004', 'A042', 'A025', 'A042'];
 
-        console.log(idBestUsers(a1,a2));
+        console.log(idBestUsers(a1,a2,a3));
 
     </script>
 
