@@ -11,145 +11,74 @@
 <body>
 
     <script>
-        //Tank Truck
-        function tankvol(h, d, vt) {
-            var r = d/2;
-            var totalLength = (vt)/(Math.PI*Math.pow(r, 2));
-            volume = totalLength*((Math.pow(r,2)*Math.acos((r-h)/r)-(r-h)*Math.pow((2*h*r)-(h*h), .5)));
-            return Math.floor(volume);
+
+    var hungryFoxes = function(farm) {
+        var outside = [];
+        var territory = farm;
+        while (territory.includes('[')) {
+            //console.log("remaining string:" + territory, "outside:" + outside);
+            var field = territory.substring(0,territory.indexOf('['));
+            outside.push(field);
+            territory = territory.substring(territory.indexOf(']')+1, territory.length);
         }
+        outside.push(territory);
 
-        //console.log(tankvol(5, 7, 3848), 2940);
-        //console.log(tankvol(2, 7, 3848), 907);
-
-        //idBestUsers
-        function idBestUsers(...data) {
-            var users = [];
-            var index = 0;
-            data.forEach(arr => {
-                for (var i=0; i<arr.length; i++) {
-                    console.log(arr[i],users);
-                    const value = users.filter( element => element[0] === arr[i]);
-                    console.log(value,index);
-                    if (value.length===0) {
-                        users.push([arr[i], 1, index]);
-                        index++;
-                    }
-                    else {
-                        var ind = value[0][2];
-                        console.log(value, ind);
-                        users[ind][1] = users[ind][1] + 1;
-                    }
-                }
-            });
-            return users;
-        }
-
-        // a1 = ['A042', 'B004', 'A025', 'A042', 'C025'];
-        // a2 = ['B009', 'B040', 'B004', 'A042', 'A025', 'A042'];
-        // a3 = ['A042', 'B004', 'A025', 'A042', 'C025', 'B009', 'B040', 'B004', 'A042', 'A025', 'A042'];
-
-        // console.log(idBestUsers(a1,a2,a3));
+        var foxesOutside = false;
+        //console.log("outside:" + outside);
         
-        //Car Park Escape
-        function escape(carpark){
-            var tempArr = [];
-            var parkLevel;
-            for (var i = 0; i< carpark.length; i++) {
-                if (carpark[i].indexOf(2) > -1) {
-                    parkLevel = i;
+        outside.forEach(function(element) {
+            for (var n=0; n<element.length; n++) {
+                if (element[n]==='F') {
+                    foxesOutside = true;
                 }
             }
-            while (parkLevel<carpark.length) {
-                tempArr.push(carpark[parkLevel]);
-                parkLevel++;
-            }
-
-            var answer = [];
-            var stairPosition = 0;
-            var floors = 1;
-
-            if (tempArr.length===1) {
-                var space = tempArr[0].indexOf(2);
-                if (space===tempArr[0].length-1) {
-                    return answer;
+            //console.log(foxesOutside);
+        });
+        var answer = "";
+        var i = 0;
+        while (i<farm.length) {
+            if (farm[i]=="[") {
+                var temp = farm.substring(i);
+                var henhouse = temp.substring(0, temp.indexOf(']')+1);
+                if (henhouse.includes("F")) {
+                    for (var j = 0; j<henhouse.length; j++) {
+                        if (henhouse[j]==='C') {
+                            answer = answer + '.';
+                        }
+                        else {
+                            answer = answer + henhouse[j];
+                        }
+                    }
                 }
                 else {
-                    answer.push("R" + (tempArr[0].length-space-1).toString());
+                    answer = answer + henhouse;
+                }
+                i = i + henhouse.length;
+            }
+            else if (farm[i]==="C") {
+                if (foxesOutside) {
+                    answer = answer + ".";
+                    i++;
+                }
+                else {
+                    answer = answer + farm[i];
+                    i++;
                 }
             }
             else {
-                for (var j = 0; j < tempArr.length; j++) {
-                    if (j===0) {
-                        var park;
-                        var stairs;
-                        for (var i = 0; i<tempArr[j].length; i++) {
-                            if (tempArr[j][i]===2) {
-                                var park = i;
-                            }
-                            else if (tempArr[j][i]===1) {
-                                var stairs = i;
-                                var stairPosition = i;
-                            }
-                        }
-                        if (park>stairs) {
-                            answer.push("L" + (park-stairs).toString());
-                        }
-                        else {
-                            answer.push("R" + (stairs-park).toString());
-                        }
-                    }
-                    else if (j!==tempArr.length-1) {
-                        var nextStair = tempArr[j].indexOf(1);
-                        if (nextStair!==stairPosition) {
-                            answer.push("D" + floors.toString());
-                            if (nextStair<stairPosition) {
-                                answer.push("L" + (stairPosition-nextStair).toString());
-                                stairPosition = nextStair;
-                            }
-                            else {
-                                answer.push("R" + (nextStair-stairPosition).toString());
-                                stairPosition = nextStair;
-                            }
-                            floors = 1;
-                        }
-                        else {
-                            floors++;
-                        }
-                    }
-                    else if (j===tempArr.length-1) {
-                        var exit = tempArr[j].length -1;
-                        if (stairPosition===exit) {
-                            answer.push("D" + floors.toString());
-                        }
-                        else {
-                            answer.push("D" + (floors).toString());
-                            answer.push("R" + (exit - stairPosition).toString());
-                        }
-                    }              
-                }
+                answer = answer + farm[i];
+                i++;
             }
-            return answer;
         }
+        return answer;
+    }
 
-        carpark = [[1, 0, 0, 0, 0],
-            [1, 0, 0, 0, 2],
-           [0, 0, 0, 0, 0]];
-        result = ["L4", "D1", "R4"];
+    var before = "CCC[CCC]FCC[CCCCC]CFFFF[CCC]FFFF";
+    var after  = "...[CCC]F..[CCCCC].FFFF[CCC]FFFF";
 
-        carpark2 = [ [ 0, 0, 0, 0, 2 ] ];
-        carpark3 = [ [ 0, 0, 0, 2, 0 ] ];
-        carpark4 = [ [ 1, 0, 0, 0, 2 ],
-                    [ 0, 0, 0, 0, 1 ],
-                    [ 1, 0, 0, 0, 0 ],
-                    [ 0, 0, 0, 0, 0 ] ]
+    console.log(hungryFoxes(before), + "\n" + after);
 
-        console.log(escape(carpark), result, "Expected '"+result.toString()+"'");
-        console.log(escape(carpark2), "[]");
-        console.log(escape(carpark3), "R1");
-        console.log(escape(carpark4), "['L4', 'D1', 'R4', 'D1', 'L4', 'D1', 'R4']");
-
-    </script>
+   </script>
 
 </body>
 
