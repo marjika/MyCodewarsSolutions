@@ -76,7 +76,38 @@
     var before = "CCC[CCC]FCC[CCCCC]CFFFF[CCC]FFFF";
     var after  = "...[CCC]F..[CCCCC].FFFF[CCC]FFFF";
 
-    console.log(hungryFoxes(before), + "\n" + after);
+    //console.log(hungryFoxes(before), + "\n" + after);
+
+    //seven-segment number
+    function sevenSegmentNumber(number) {
+        switch(number) {
+            case (0)://1111101
+            return 125
+            case (1)://1010000
+            return 80
+            case (2)://0110111
+            return 55
+            case (3)://1010111
+            return 87
+            case (4)://1011010
+            return 90
+            case (5)://1001111
+            return 79
+            case (6)://1101111
+            return 111
+            case (7)://1010001
+            return 81
+            case (8)://1111111
+            return 127
+            case (9)://1011111
+            return 95
+            default:
+            throw console.error("not valid");
+            
+        }
+    }
+
+
 
    </script>
 
