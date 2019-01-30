@@ -119,10 +119,37 @@
             }
         }
         var location = findIndex(maze, 2);
-        function bearings()
-        for (var d=0; d<directions.length; d++) {
-
+        function move(dir) {
+            if (dir==="N") {
+                location[0] = location[0] -1;
+            }
+            if (dir==="S") {
+                location[0] = location[0] + 1;                               
+            }
+            if (dir==="E") {
+                location[1] = location[1] + 1;                                
+            }
+            if (dir==="W") {
+                location[1] = location[1] -1;                               
+            }
+            return location;
         }
+        for (var d=0; d<directions.length; d++) {
+            location = move(directions[d]);
+             if (typeof (maze[location[0]]) === 'undefined' || typeof (maze[location[0]][location[1]]) === 'undefined') {
+                return "Dead";
+             }
+             else {
+                if (maze[location[0]][location[1]]===1) {
+                    console.log(location[0], location[1], maze[location[0]][location[1]])
+                    return "Dead";
+                }              
+                else if (maze[location[0]][location[1]]===3) {
+                    return "Finish";
+                }
+            }
+        }
+        return "Lost";
     }
 
     var maze = [[1,1,1,1,1,1,1],
