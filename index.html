@@ -107,6 +107,33 @@
         }
     }
 
+    //Maze Runner
+    function mazeRunner(maze, directions) {
+        function findIndex(map, num) {
+            for (var i = 0; i<map.length; i++) {
+                for (var j=0; j<map[i].length; j++) {
+                    if (map[i][j]===num) {
+                        return [i,j];
+                    }
+                }
+            }
+        }
+        var location = findIndex(maze, 2);
+        function bearings()
+        for (var d=0; d<directions.length; d++) {
+
+        }
+    }
+
+    var maze = [[1,1,1,1,1,1,1],
+                [1,0,0,0,0,0,3],
+                [1,0,1,0,1,0,1],
+                [0,0,1,0,0,0,1],
+                [1,0,1,0,1,0,1],
+                [1,0,0,0,0,0,1],
+                [1,2,1,0,1,0,1]];
+
+    console.log(mazeRunner(maze,["N","N","N","N","N","E","E","E","E","E"]), "Finish", "Expected Finish");
 
 
    </script>
