@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Get Sum</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+    <script>
+
+        //Masquerade Waiting LIne
+        function friendFind(line)
+        {
+            var answer = 0;
+            // var BlueNumber = (line.filter(color => color==="blue")).length;
+            // var testArr = line;
+            // while (testArr.includes("red") && BlueNumber>1) {
+            //     console.log(testArr);
+            //     var indexRed = testArr.indexOf("red");
+            //     if (testArr[indexRed-1]==="blue" && testArr[indexRed+1]==="blue") {
+            //         answer++
+            //     }
+            //     else if (testArr[indexRed-1]==="blue" && testArr[indexRed-2]==="blue") {
+            //         answer++
+            //     }
+            //     else if (testArr[indexRed+1]==="blue" && testArr[indexRed+2]==="blue") {
+            //         answer++
+            //     }
+            //     testArr.splice(0, indexRed+1);
+            // }
+            for (var i = 0; i<line.length; i++) {
+                if (line[i]==="red") {
+                    if (line[i-1]==="blue" && line[i+1]==="blue") {
+                        answer++
+                    }
+                    else if (line[i-1]==="blue" && line[i-2]==="blue") {
+                        answer++
+                    }
+                    else if (line[i+1]==="blue" && line[i+2]==="blue") {
+                        answer++
+                    }
+                }
+            }
+            return answer;
+        }
+
+        //console.log(friendFind(['red','blue','red','blue','blue','blue','red']),0);
+        
+        //Scramble words
+        ScrambleWords = function(str){
+            var symbolStart = false;
+            var symbolEnd = false;
+            var answer = "";
+            if (str.length===1||str.length===2) {
+                return str;
+            }
+            else {
+                var sentence = str.split(" ");
+                console.log(sentence);
+                for (var w=0; w<sentence.length; w++) {
+                    if (sentence[w].length===1||sentence[w].length===2) {
+                        answer = answer + sentence[w] + " ";
+                    }
+                    else {
+                        var word = sentence[w].split("");
+                        console.log(word);
+                        var partial;
+                        if (word[0]==="-"||word[0]==="'"||word[0]===","||word[0]===".") {
+                            partial = word.slice(2, word.length-1);
+                            symbolStart = true;
+                            
+                        }
+                        else if (word[word.length-1]==="-"||word[word.length-1]==="'"||word[word.length-1]===","||word[word.length-1]===".") {
+                            partial = word.slice(1, word.length-2);
+                            symbolEnd = true;
+                        }
+                        else {
+                            partial = word.slice(1, word.length-1);
+                        }
+                        var middle = partial.slice(0);
+                        for (var i = 0; i<middle.length; i++) {
+                            if (middle[i]==="-"||middle[i]==="'"||middle[i]===","||middle[i]===".") {
+                                middle.splice(i,1);
+                            }
+                        }
+                        var sorted = middle.sort();
+                        for (var j = 0; j<partial.length; j++) {
+                            if (partial[j]==="-"||partial[j]==="'"||partial[j]===","||partial[j]===".") {
+                                sorted.splice(j, 0, partial[j]);
+                            }
+                        }
+                        if (symbolStart) {
+                            answer = answer + word[0] + word[1] +  middle.join("") + word[word.length-1] + " ";
+                            symbolStart = false;
+                        }
+                        else if (symbolEnd) {
+                            answer = answer + word[0] + middle.join("") + word[word.length-2] + word[word.length-1] + " ";
+                            symbolEnd = false;
+                        }
+                        else {
+                            answer = answer + word[0] + middle.join("") + word[word.length-1] + " ";
+                        }
+                    }
+                }
+            }
+            return answer.slice(0, -1);
+        };
+
+        //console.log(ScrambleWords('prof-essionals'), 'paef-ilnoorsss');
+        //console.log(ScrambleWords('-pj'));
+        console.log(ScrambleWords("you've a dd like there's nobody watching, love like you'll never be hurt, sing like there's nobody listening, and live like it's heaven on earth."), "you've gotta dacne like teehr's nbdooy wachintg, love like ylo'ul neevr be hrut, sing like teehr's nbdooy leiinnstg, and live like it's haeevn on earth.");
+        
+
+    </script>
+
+</body>
+
+</html>
