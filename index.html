@@ -75,23 +75,26 @@
         //console.log(damagedOrSunk(board, attacks), "{ sunk: 1, damaged: 0 , notTouched: 0, points: 1 }");
 
         //Build a Car
-        function Car(length, doors) {
-            
-            this.length = length;
-            this.doors = doors;
-            this.middle = (length<14 ? (length-5) : length%2===0 ? 5:6);
-            this.frontAxle = (length<14) ? 1 : (Math.floor((length-14)/4) + 2);
-            this.rearAxle = (length<12) ? 1 : (Math.floor((length-12)/4) + 2);
-            this.frontDoors = Math.ceil(doors/2);
-            this.rearDoors = Math.floor(doors/2);
-            this.body = (length-3)-(doors*2);
-            if (this.length<7 || this.doors<1) {
-                throw(console.error("Must be at least 7 long and have at least one set of doors."));
+        function Car(length, doors) {  
+            //console.log(length, doors);
+            if (length<7) {
+                throw "We cannot build that small car.";
+            }
+            else if (doors<1) {
+                throw "We cannot enter a doorless car.";
             }
             else if (((length-3)/doors)<2) {
-                throw(console.error("Too many doors for this car."))
+                throw "We cannot fit that many doors in that car.";
             }
             else {
+                this.length = length;
+                this.doors = doors;
+                this.middle = (length<14 ? (length-5) : length%2===0 ? 5:6);
+                this.frontAxle = (length<14) ? 1 : (Math.floor((length-14)/4) + 2);
+                this.rearAxle = (length<12) ? 1 : (Math.floor((length-12)/4) + 2);
+                this.frontDoors = Math.ceil(doors/2);
+                this.rearDoors = Math.floor(doors/2);
+                this.body = (length-3)-(doors*2);
                 this.body = {
                     component : " " + ("_").repeat(this.length-3) + "\n" 
                         + "|" + ("[]").repeat(this.rearDoors) + (" ").repeat(this.body) + ("[]").repeat(this.frontDoors) + "\\" + "\n"
@@ -99,8 +102,7 @@
                 this.chassis = {
                     component : ("-o").repeat(this.rearAxle) + ("-").repeat(this.middle) + ("o-").repeat(this.frontAxle) + "'"
                 };
-            }
-            
+            }            
         }
 
         function testCars(length, doors) {
