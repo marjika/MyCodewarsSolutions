@@ -15,17 +15,35 @@
         //Battle Ships
         function damagedOrSunk (board, attacks){
             var answer = { sunk : 0, damaged: 0, notTouched: 0, points: 0 };
-            function Boat(num) {
+            function Boat(num, length) {
                 this.num = num;
-                this.length = 0;
+                this.length = length;
                 this.hits = 0;
-                this.sunk = false;
+                this.checkHit = function() {
+                    for (var a = 0; a<attacks.length; a++) {
+                        var hitSpace = board[board.length-attacks[a][1]][attacks[a][0]-1];
+                        console.log(hitSpace);
+                        if (hitSpace===num) {
+                            this.length--;
+                            this.hits++;
+                            if (this.length===0) {
+                                answer.sunk++
+                                answer.points++
+                            }
+                        }
+                    }
+                    if (this.hits===0) {
+                        answer.points--;
+                        answer.notTouched++;
+                    }
+                    else if (this.hits>0 && this.length>0) {
+                        answer.points+=.5;
+                        answer.damaged++;
+                    }
+                }
             }
             var boatArr = [0,0,0]
-            // boat1 = { length: 0, hits: 0, sunk: false};
-            // boat2 = { length: 0, notTouched: true, sunk: false};
-            // boat3 = { length: 0, notTouched: true, sunk: false};
-
+ 
             for (var i = 0; i < board.length; i++) {
                 for (var j = 0; j < board[i].length; j++) {
                     if (board[i][j]===1) {
@@ -42,24 +60,16 @@
 
             for (var b = 0; b<boatArr.length; b++) {
                 if (boatArr[b]>0) {
-                    let boat = new Boat((b+1));
-                    this.boat.length = boatArr[b];
-                    console.log(this.boat.length);
+                    let boat = new Boat((b+1), boatArr[b]);
+                    boat.checkHit();
                 }
-            }
-
-            // for (var a = 0; a<attacks.length; a++) {
-            //     var hitSpace = 
-            // }
-
-            console.log(boatArr);
-            
+            }            
             return answer;
         }
 
         var board = [ [0, 0, 1, 0],
-              [0, 0, 1, 0],
-              [0, 0, 1, 0] ];
+                    [0, 0, 1, 0],
+                    [0, 0, 1, 0] ];
           
         var attacks = [[3, 1], [3, 2], [3, 3]];
         console.log(damagedOrSunk(board, attacks), "{ sunk: 1, damaged: 0 , notTouched: 0, points: 1 }");
