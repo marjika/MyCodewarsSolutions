@@ -211,25 +211,53 @@
 
         let game = new ScoreCard();
         //console.log(game.getScore());
-        game.addEntry("out");
-        game.addEntry("out");
-        game.addEntry("out");
-        game.addEntry("homerun");
-        console.log(game.getScore());
-        game.addEntry("out");
-        game.addEntry("out");
-        game.addEntry("out");
-        game.addEntry("double");
-        console.log(game.getScore());
+        // game.addEntry("out");
+        // game.addEntry("out");
+        // game.addEntry("out");
+        // game.addEntry("homerun");
+        // console.log(game.getScore());
+        // game.addEntry("out");
+        // game.addEntry("out");
+        // game.addEntry("out");
+        // game.addEntry("double");
+        // console.log(game.getScore());
 
-        game.addEntry("double");
-        console.log(game.getScore());
-        game.addEntry("triple");
-        console.log(game.getScore());
+        // game.addEntry("double");
+        // console.log(game.getScore());
+        // game.addEntry("triple");
+        // console.log(game.getScore());
         
         //console.log(this.outs, this.awayAtBat);
 
-        
+        //"this" is an other problem
+        function NamedOne(first, last) {
+            this.firstName = first;
+            this.lastName = last;
+         
+            Object.defineProperty(this, "fullName", { 
+                get: function() { 
+                    return this.firstName + ' ' + this.lastName;       
+                },        
+                set: function(newName) {  
+                    if ((newName.split(" ")).length===2) {
+                        this.firstName = newName.split(" ")[0];
+                        this.lastName = newName.split(" ")[1];
+                    }                
+                },               
+                configurable: false     
+            });
+        }
+      
+
+        var namedOne = new NamedOne("Naomi","Wang")
+        namedOne.firstName = "John";
+        namedOne.lastName = "Doe";
+        console.log(namedOne.firstName);
+        console.log(namedOne.lastName);
+        console.log(namedOne.fullName);
+        namedOne.fullName = "Mark Howarth";
+        console.log(namedOne.fullName);
+
 
 
     </script>
