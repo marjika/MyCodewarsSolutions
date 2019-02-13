@@ -12,17 +12,17 @@
 
     <script>
 
-        function evilTwin(obj) {
-            function target() {}
-            obj.prototype = Object.create(target.prototype);
-            for (let prop in obj) {
-                if (obj.hasOwnProperty(prop)) {
-                target[prop] = obj[prop];
-                }
+    function evilTwin(obj) {
+        function target() {}
+        target = Object.create(obj);
+        for (let prop in obj) {
+            if (obj.__proto__.hasOwnProperty(prop)) {
+            target[prop] = obj[prop];
             }
-            target.hasGoatee = true;
-            return target;
         }
+        target.hasGoatee = true;
+        return target;
+    }
 
     </script>
 
