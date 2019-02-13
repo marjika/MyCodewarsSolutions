@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Get Sum</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+    <script>
+        //anagrams
+        function anagrams(word, words) {
+            var answer = [];
+            var str = word.toString();
+            var temp = str.split("").sort().join("");
+            for (var i = 0; i<words.length; i++) {
+                if (words[i].length===word.length) {
+                    var comp = words[i].split("").sort().join("");
+                    if (temp===comp) {
+                        return [word, words[i]];
+                    }
+                }
+            }
+            return answer;
+        }
+
+        //console.log(anagrams('abba', ['aabb', 'abcd', 'bbaa', 'dada']), ['aabb', 'bbaa']);
+
+        //console.log(anagrams('racer', ['crazer', 'carer', 'racar', 'caers', 'racer']), ['carer', 'racer']);
+
+        //console.log(anagrams('laser', ['lazing', 'lazy',  'lacer']), []);
+
+        //console.log(anagrams(a, [ 'a', 'b', 'c', 'd' ]));
+        //console.log(anagrams('a', [ 'a', 'b', 'c', 'd' ]));
+        //console.log(anagrams('a', [ 'a', 'b', 'c', 'd' ]));
+        
+        //Baseball
+                /*
+        * Scorecard Constructor
+        */
+        var ScoreCard = function() {
+            this.Score = {
+                Home: 0,
+                Away: 0
+            }
+            this.first=false;
+            this.second=false;
+            this.third=false;
+            this.outs=0;
+            this.awayAtBat = true;
+            this.advanceRunners = function(num) {
+                if (num===1) {
+                    if (this.third) {
+                        if (!this.second) {
+                            this.third=false
+                        }
+                        if (this.awayAtBat) {
+                            this.Score.Away++;
+                        }
+                        else {
+                            this.Score.Home++;
+                        }
+                    }
+                    if (this.second) {
+                        if (!this.first) {
+                            this.second=false;
+                        }
+                        this.third = true;
+                    }
+                    if (this.first) {
+                        this.second=true;
+                    }
+                    this.first=true;
+                }
+                if (num===2) {
+                    if (this.third) {
+                        if (!this.first) {
+                            this.third=false;
+                        }
+                        if (this.awayAtBat) {
+                            this.Score.Away++;
+                        }
+                        else {
+                            this.Score.Home++;
+                        }
+                    }
+                    if (this.second) {
+                        if (this.awayAtBat) {
+                            this.Score.Away++;
+                        }
+                        else {
+                            this.Score.Home++;
+                        }
+                    }
+                    if (this.first) {
+                        this.third=true;
+                        this.first=false;
+                    }
+                    this.second=true;
+                }
+                if (num===3) {
+                    if (this.third) {
+                        if (this.awayAtBat) {
+                            this.Score.Away++;
+                        }
+                        else {
+                            this.Score.Home++;
+                        }
+                    }
+                    if (this.second) {
+                        this.second=false;
+                        if (this.awayAtBat) {
+                            this.Score.Away++;
+                        }
+                        else {
+                            this.Score.Home++;
+                        }
+                    }
+                    if (this.first) {
+                        this.first=false;
+                        if (this.awayAtBat) {
+                            this.Score.Away++;
+                        }
+                        else {
+                            this.Score.Home++;
+                        }
+                    }
+                    this.third=true;
+                }
+                if (num===4) {
+                    if (this.third) {
+                        if (this.awayAtBat) {
+                            this.Score.Away++;
+                        }
+                        else {
+                            this.Score.Home++;
+                        }
+                    }
+                    if (this.second) {
+                        this.second=false;
+                        if (this.awayAtBat) {
+                            this.Score.Away++;
+                        }
+                        else {
+                            this.Score.Home++;
+                        }
+                    }
+                    if (this.first) {
+                        this.first=false;
+                        if (this.awayAtBat) {
+                            this.Score.Away++;
+                        }
+                        else {
+                            this.Score.Home++;
+                        }
+                    }
+                    this.first=false;
+                    this.second=false;
+                    this.third=false;
+                    if (this.awayAtBat) {
+                        this.Score.Away++;
+                    }
+                    else {
+                        this.Score.Home++;
+                    }
+                }
+            }
+        }
+
+        /*
+        * A public method accepting the result of an at-bat
+        * @param {string} entry - The result of an at-bat 
+        * Acceptable values: ('single', 'double', 'triple', 'homerun' or 'out') 
+        */
+        ScoreCard.prototype.addEntry = function(entry) {
+            if (entry==="out") {
+                this.outs++;
+                if (this.outs >2) {
+                    this.awayAtBat=!this.awayAtBat;
+                    this.first=false;
+                    this.second=false;
+                    this.third=false;
+                    this.outs=0;
+                }
+            }
+            else if (entry==="single") {
+                this.advanceRunners(1);
+            }
+            else if (entry==="double") {
+                this.advanceRunners(2);
+            }       
+            else if (entry==="triple") {
+                this.advanceRunners(3);
+            }            
+            else if (entry==="homerun") {
+                this.advanceRunners(4);
+            }
+        }
+
+        /*
+        * A public method returning the current score
+        * Format: "Home: [HOME_SCORE] Away: [AWAY_SCORE]"
+        */
+        ScoreCard.prototype.getScore = function() {
+            var gameScore = "Home: " + this.Score.Home.toString() + " Away: " + this.Score.Away.toString();
+            return gameScore;
+        }
+
+        let game = new ScoreCard();
+        //console.log(game.getScore());
+        // game.addEntry("out");
+        // game.addEntry("out");
+        // game.addEntry("out");
+        // game.addEntry("homerun");
+        // console.log(game.getScore());
+        // game.addEntry("out");
+        // game.addEntry("out");
+        // game.addEntry("out");
+        // game.addEntry("double");
+        // console.log(game.getScore());
+
+        // game.addEntry("double");
+        // console.log(game.getScore());
+        // game.addEntry("triple");
+        // console.log(game.getScore());
+        
+        //console.log(this.outs, this.awayAtBat);
+
+        //"this" is an other problem
+        function NamedOne(first, last) {
+            this.firstName = first;
+            this.lastName = last;
+         
+            Object.defineProperty(this, "fullName", { 
+                get: function() { 
+                    return this.firstName + ' ' + this.lastName;       
+                },        
+                set: function(newName) {  
+                    if ((newName.split(" ")).length===2) {
+                        this.firstName = newName.split(" ")[0];
+                        this.lastName = newName.split(" ")[1];
+                    }                
+                },               
+                configurable: false     
+            });
+        }
+      
+
+        var namedOne = new NamedOne("Naomi","Wang")
+        namedOne.firstName = "John";
+        namedOne.lastName = "Doe";
+        console.log(namedOne.firstName);
+        console.log(namedOne.lastName);
+        console.log(namedOne.fullName);
+        namedOne.fullName = "Mark Howarth";
+        console.log(namedOne.fullName);
+
+
+
+    </script>
+
+</body>
+
+</html>
