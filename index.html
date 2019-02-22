@@ -46,7 +46,35 @@
             }
         }
 
-        console.log(formatDuration(3662), "1 hour, 1 minute and 2 seconds");
+        //console.log(formatDuration(3662), "1 hour, 1 minute and 2 seconds");
+
+        //Strip Comments
+        function checkComments(input, markers) {
+            var answer = "";
+            var num = input.length;
+            var lineReturn = 1;
+            var i=0;
+            while (i<num) {
+                //console.log(markers.includes(input[i]));
+                if (!markers.includes(input[i])) {
+                    answer = answer + input[i];
+                    i++;
+                }
+                else if (markers.includes(input[i]) && input.indexOf("\n", lineReturn)>-1) {
+                    console.log(i, input.indexOf("\n"));
+                    //var linReturnIndex = input.indexOf("\n");
+                    i = input.indexOf("\n", lineReturn);
+                    lineReturn++;
+                    //input = input.substring(input.indexOf("\n")).trim();
+                   
+                }
+            }
+
+            return answer;
+        };
+
+        console.log(checkComments("apples, plums % and bananas\npears\noranges !applesauce", ["%", "!"]), "apples, plums\npears\noranges");
+        console.log(checkComments("Q @b\nu\ne -e f g", ["@", "-"], "Q\nu\ne"));
 
     </script>
 
