@@ -51,30 +51,21 @@
         //Strip Comments
         function checkComments(input, markers) {
             var answer = "";
-            var num = input.length;
-            var lineReturn = 1;
-            var i=0;
-            while (i<num) {
-                //console.log(markers.includes(input[i]));
-                if (!markers.includes(input[i])) {
-                    answer = answer + input[i];
-                    i++;
-                }
-                else if (markers.includes(input[i]) && input.indexOf("\n", lineReturn)>-1) {
-                    console.log(i, input.indexOf("\n"));
-                    //var linReturnIndex = input.indexOf("\n");
-                    i = input.indexOf("\n", lineReturn);
-                    lineReturn++;
-                    //input = input.substring(input.indexOf("\n")).trim();
-                   
+            var str = input;
+            var i=-1;
+            while (i<str.length) {
+                i++;
+                if (markers.includes(str[i])) {
+                    answer = answer + (str.substring(0, i)).trimRight();
+                    str = str.substring(input.indexOf("\n"));
+                    i=-1
                 }
             }
-
             return answer;
         };
 
-        console.log(checkComments("apples, plums % and bananas\npears\noranges !applesauce", ["%", "!"]), "apples, plums\npears\noranges");
-        console.log(checkComments("Q @b\nu\ne -e f g", ["@", "-"], "Q\nu\ne"));
+        console.log("my answer " + checkComments("apples, plums % and bananas\npears\noranges !applesauce", ["%", "!"]) + "\n", "apples, plums\npears\noranges");
+        console.log("my answer " + checkComments("Q @b\nu\ne -e f g", ["@", "-"]) + "\n", "Q\nu\ne");
 
     </script>
 
