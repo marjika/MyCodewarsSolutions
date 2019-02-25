@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Get Sum</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+    <script>
+
+        //Human readable duration format
+        function formatDuration (seconds) {
+            if (seconds===0) {
+                return "now";
+            }
+            else {
+                var answer= "";
+                var span = { year:0, day:0, hour:0, minute:0, second:0 };
+                span.year =  Math.floor(seconds / 31536000);
+                span.day = Math.floor((seconds%31536000) / 86400);
+                span.hour = Math.floor((seconds % 86400) / 3600);
+                span.minute = Math.floor(((seconds % 86400) % 3600) / 60);
+                span.second = ((seconds % 86400) % 3600) % 60;
+
+                for (var property in span) {
+                    if (span[property]===1) {
+                        answer = answer + span[property] + " " + property + ", ";
+                    }
+                    else if (span[property]>1) {
+                        answer = answer + span[property] + " " + property + "s, ";
+                    }
+                }
+
+                answer = answer.substring(0, answer.length-2);
+
+                if (answer.indexOf(',') > -1) {
+                    var lastCommaPos = answer.lastIndexOf(",");
+                    answer = answer.substr(0, lastCommaPos) + ' and' + answer.substr(lastCommaPos + 1);
+                }
+
+                return answer;
+            }
+        }
+
+        //console.log(formatDuration(3662), "1 hour, 1 minute and 2 seconds");
+
+        //Strip Comments
+        function checkComments(input, markers) {
+            var answer = "";
+            var str = input;
+            var i=-1;
+            while (i<str.length) {
+                i++;
+                if (markers.includes(str[i])) {
+                    answer = answer + (str.substring(0, i)).trimRight();
+                    str = str.substring(input.indexOf("\n"));
+                    i=-1
+                }
+            }
+            return answer;
+        };
+
+        console.log("my answer " + checkComments("apples, plums % and bananas\npears\noranges !applesauce", ["%", "!"]) + "\n", "apples, plums\npears\noranges");
+        console.log("my answer " + checkComments("Q @b\nu\ne -e f g", ["@", "-"]) + "\n", "Q\nu\ne");
+
+    </script>
+
+</body>
+
+</html>
