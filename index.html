@@ -12,12 +12,17 @@
 
     <script>
 
+//         class SuperClass {
+//    static init() {
+//      console.log("new class constructed !")
+//    }
+// }
+
         //Roman Numeral Converter
-        class romanNumerals {
-            constructor() {
-            var romanNum = ["M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"];
-            var intNum = [1000,900,500,400,100,90,50,40,10,9,5,4,1];
-            this.toRoman = function(num) {
+        class RomanNumerals {       
+            static toRoman(num) {
+                var romanNum = ["M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"];
+                var intNum = [1000,900,500,400,100,90,50,40,10,9,5,4,1];
                 var temp = num;
                 var answer = "";
                 for (var i = 0; i< intNum.length; i++) {
@@ -28,7 +33,9 @@
                 }
                 return answer;
             }
-            this.fromRoman = function(roman) {
+            static fromRoman(roman) {
+                var romanNum = ["M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"];
+                var intNum = [1000,900,500,400,100,90,50,40,10,9,5,4,1];
                 var intAnswer = 0;
                 var numeralLetters= roman;
                 var l = 0;
@@ -46,11 +53,9 @@
                     }
                 }
                 return intAnswer;
-            }
-        }
+            }        
         }
 
-        let RomanNumerals = new romanNumerals();
 
         console.log(RomanNumerals.toRoman(1000), 'M');
         console.log(RomanNumerals.toRoman(999), "CMXCIX");
