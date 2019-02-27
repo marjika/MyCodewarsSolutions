@@ -12,60 +12,50 @@
 
     <script>
 
-//         class SuperClass {
-//    static init() {
-//      console.log("new class constructed !")
-//    }
-// }
-
-        //Roman Numeral Converter
-        class RomanNumerals {       
-            static toRoman(num) {
-                var romanNum = ["M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"];
-                var intNum = [1000,900,500,400,100,90,50,40,10,9,5,4,1];
-                var temp = num;
-                var answer = "";
-                for (var i = 0; i< intNum.length; i++) {
-                    while (temp>=intNum[i]) {
-                        answer = answer + romanNum[i];
-                        temp = temp - intNum[i];
+        //Strings Mix
+        function mix(s1, s2) {
+            var s1arr = [];
+            var s2arr = [];
+            var answerarr = [];
+            var letters = "abcdefghijklmnopqrstuvwxyz";
+            for (var letter=0; letter<letters.length; letter++) {
+                //console.log(letters[letter]);
+                var letstring1 = "";
+                var letstring2 = "";
+                for (var i=0; i<s1.length; i++) {
+                    if (letters[letter]===s1[i]) {
+                        letstring1 = letstring1 + s1[i];
                     }
                 }
-                return answer;
+                for (var j=0; j<s2.length; j++) {
+                    if (letters[letter]===s2[j]) {
+                        letstring2 = letstring2 + s2[j];
+                    }
+                }
+                s1arr.push(letstring1);
+                s2arr.push(letstring2);
             }
-            static fromRoman(roman) {
-                var romanNum = ["M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"];
-                var intNum = [1000,900,500,400,100,90,50,40,10,9,5,4,1];
-                var intAnswer = 0;
-                var numeralLetters= roman;
-                var l = 0;
-                while (l<romanNum.length) {
-                    if (romanNum[l]===numeralLetters.slice(0,1)) {
-                        intAnswer = intAnswer + intNum[l];
-                        numeralLetters = numeralLetters.slice(numeralLetters.indexOf(romanNum[l])+1, numeralLetters.length);
-                    }
-                    else if (romanNum[l]===numeralLetters.slice(0,2)) {
-                        intAnswer = intAnswer + intNum[l];
-                        numeralLetters = numeralLetters.slice(l+2, numeralLetters.length);
-                    }
-                    else {
-                        l++;
-                    }
+
+            for (var k = 0; k<26; k++) {
+                if (s1arr[k].length>s2arr[k].length && s1arr[k].length>1) {
+                    answerarr.push("1:" + s1arr[k]);
                 }
-                return intAnswer;
-            }        
+                else if (s1arr[k].length<s2arr[k].length && s2arr[k].length>1) {
+                    answerarr.push("2:" + s2arr[k]);
+                }
+                if (s1arr[k].length===s2arr[k].length && s1arr[k].length>1) {
+                    answerarr.push("=:" + s1arr[k]);
+                }
+            }
+            answerarr.sort(function(a, b) {
+                return b.length - a.length || a.localeCompare(b); 
+            });
+            return answerarr.join("/");
         }
 
-
-        console.log(RomanNumerals.toRoman(1000), 'M');
-        console.log(RomanNumerals.toRoman(999), "CMXCIX");
-        console.log(RomanNumerals.toRoman(2020), 'MMXX');
-        console.log(RomanNumerals.toRoman(4), 'IV');   
-        
-        console.log(RomanNumerals.fromRoman('XXI'), 21);
-        console.log(RomanNumerals.fromRoman('MMVII'), 2007);
-        console.log(RomanNumerals.fromRoman('MDCLXIX'), 1669);
-        console.log(RomanNumerals.fromRoman('IV'), 4);
+        console.log(mix("Are they here", "yes, they are here"), "2:eeeee/2:yy/=:hh/=:rr");
+        console.log(mix("codewars", "codewars"), "");
+        console.log(mix("looping is fun but dangerous", "less dangerous than coding"), "1:ooo/1:uuu/2:sss/=:nnn/1:ii/2:aa/2:dd/2:ee/=:gg");
         
     </script>
 

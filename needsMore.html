@@ -67,6 +67,55 @@
         console.log("my answer " + checkComments("apples, plums % and bananas\npears\noranges !applesauce", ["%", "!"]) + "\n", "apples, plums\npears\noranges");
         console.log("my answer " + checkComments("Q @b\nu\ne -e f g", ["@", "-"]) + "\n", "Q\nu\ne");
 
+                //Roman Numeral Converter
+                class RomanNumerals {       
+            static toRoman(num) {
+                var romanNum = ["M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"];
+                var intNum = [1000,900,500,400,100,90,50,40,10,9,5,4,1];
+                var temp = num;
+                var answer = "";
+                for (var i = 0; i< intNum.length; i++) {
+                    while (temp>=intNum[i]) {
+                        answer = answer + romanNum[i];
+                        temp = temp - intNum[i];
+                    }
+                }
+                return answer;
+            }
+            static fromRoman(roman) {
+                var romanNum = ["M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"];
+                var intNum = [1000,900,500,400,100,90,50,40,10,9,5,4,1];
+                var intAnswer = 0;
+                var numeralLetters= roman;
+                var l = 0;
+                while (l<romanNum.length) {
+                    if (romanNum[l]===numeralLetters.slice(0,1)) {
+                        intAnswer = intAnswer + intNum[l];
+                        numeralLetters = numeralLetters.slice(numeralLetters.indexOf(romanNum[l])+1, numeralLetters.length);
+                    }
+                    else if (romanNum[l]===numeralLetters.slice(0,2)) {
+                        intAnswer = intAnswer + intNum[l];
+                        numeralLetters = numeralLetters.slice(l+2, numeralLetters.length);
+                    }
+                    else {
+                        l++;
+                    }
+                }
+                return intAnswer;
+            }        
+        }
+
+
+        console.log(RomanNumerals.toRoman(1000), 'M');
+        console.log(RomanNumerals.toRoman(999), "CMXCIX");
+        console.log(RomanNumerals.toRoman(2020), 'MMXX');
+        console.log(RomanNumerals.toRoman(4), 'IV');   
+        
+        console.log(RomanNumerals.fromRoman('XXI'), 21);
+        console.log(RomanNumerals.fromRoman('MMVII'), 2007);
+        console.log(RomanNumerals.fromRoman('MDCLXIX'), 1669);
+        console.log(RomanNumerals.fromRoman('IV'), 4);
+
     </script>
 
 </body>
