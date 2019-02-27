@@ -43,12 +43,14 @@
                 else if (s1arr[k].length<s2arr[k].length && s2arr[k].length>1) {
                     answerarr.push("2:" + s2arr[k]);
                 }
-                if (s1arr[k].length===s2arr[k].length && s1arr[k].length>1) {
+                else if (s1arr[k].length===s2arr[k].length && s1arr[k].length>1) {
                     answerarr.push("=:" + s1arr[k]);
                 }
             }
+            answerarr.sort(); 
+
             answerarr.sort(function(a, b) {
-                return b.length - a.length || a.localeCompare(b); 
+                return b.length - a.length; 
             });
             return answerarr.join("/");
         }
