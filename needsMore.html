@@ -116,6 +116,53 @@
         console.log(RomanNumerals.fromRoman('MDCLXIX'), 1669);
         console.log(RomanNumerals.fromRoman('IV'), 4);
 
+                //Strings Mix
+                function mix(s1, s2) {
+            var s1arr = [];
+            var s2arr = [];
+            var answerarr = [];
+            var letters = "abcdefghijklmnopqrstuvwxyz";
+            for (var letter=0; letter<letters.length; letter++) {
+                //console.log(letters[letter]);
+                var letstring1 = "";
+                var letstring2 = "";
+                for (var i=0; i<s1.length; i++) {
+                    if (letters[letter]===s1[i]) {
+                        letstring1 = letstring1 + s1[i];
+                    }
+                }
+                for (var j=0; j<s2.length; j++) {
+                    if (letters[letter]===s2[j]) {
+                        letstring2 = letstring2 + s2[j];
+                    }
+                }
+                s1arr.push(letstring1);
+                s2arr.push(letstring2);
+            }
+
+            for (var k = 0; k<26; k++) {
+                if (s1arr[k].length>s2arr[k].length && s1arr[k].length>1) {
+                    answerarr.push("1:" + s1arr[k]);
+                }
+                else if (s1arr[k].length<s2arr[k].length && s2arr[k].length>1) {
+                    answerarr.push("2:" + s2arr[k]);
+                }
+                else if (s1arr[k].length===s2arr[k].length && s1arr[k].length>1) {
+                    answerarr.push("=:" + s1arr[k]);
+                }
+            }
+            answerarr.sort(); 
+
+            answerarr.sort(function(a, b) {
+                return b.length - a.length; 
+            });
+            return answerarr.join("/");
+        }
+
+        console.log(mix("Crrrw&pwxpAflls@njyg9tgzaGktqf", "Vmazh-caor1iubdUpmyn+lmaa,lgyd"), "2:aaaa/1:rrr/2:mmm/1:ff/1:gg/1:pp/1:tt/1:ww/2:dd/2:yy/=:ll");
+        console.log(mix("codewars", "codewars"), "");
+        console.log(mix("<hobzCywdp(zfxvBdfgbVmunrZdupm", "2eapt?bifd+smbi&hfmbYvtev:soxt"), "1:ddd/2:bbb/2:ttt/1:pp/1:uu/1:zz/2:ee/2:ii/2:ss/2:vv/=:ff/=:mm");
+
     </script>
 
 </body>
