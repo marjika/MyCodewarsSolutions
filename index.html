@@ -141,45 +141,66 @@
             var framesInts = [];
             for (var i = 0; i<framesArr.length; i++) {
                 if (framesArr[i].length>2) {
-                    var tenth = framesArr.split("");
+                    var tenth = framesArr[i].split("");
                     if (tenth[1]==="/") {
                         if (tenth[2]==="X") {
-                            framesInts.push([10, false], [10, false]);
+                            framesInts.push([10, parseInt(tenth[0])], [10, 0]);
                         }
                         else {
                             var temp = parseInt(tenth[2]);
-                            framesInts.push([10, false], [temp, false]);
+                            framesInts.push([10, parseInt(tenth[0])], [temp, false]);
                         }
                     }
                     else if (tenth[2]==="/") {
-                        var temp1 = parseInt(tenth[0]);
                         var temp2 = parseInt(tenth[1]);
-                        var temp3 = 10-temp1-temp2;
-                        framesInts.push([temp1, false], [temp2, false], [temp3, false]);
+                        framesInts.push([10, true], [10, temp2]);
+
+                    }
+                    else {
+                        for (var b=0; b<tenth.length; b++) {
+                            if (tenth[b]==="X") {
+                                framesInts.push([10, true]);
+                            }
+                            else {
+                                framesInts.push([parseInt(tenth[b]), false]);
+                            }
+                        }
                     }
                 }
                 else if (framesArr[i]==="X") {
                     framesInts.push([10, true]);
                 }
                 else if (framesArr[i][1]==="/") {
-                    framesInts.push([10, false]);
+                    framesInts.push([10, parseInt(framesArr[i][0])]);
                 }
                 else {
                     var temp = parseInt(framesArr[i][0]) + parseInt(framesArr[i][1]);
-                    framesInts.push([temp, false]);
+                    framesInts.push([temp, parseInt(framesArr[i][0])]);
                 }
 
             }
+            framesInts.push([0,false], [0,false]);
             var answer = 0;
-            for (var f=0; f<framesInts.length; framesInts++) {
-                if (framesInts[f][1]===true && framesInts[f+1][1]===true) {
-                    answer = answer + framesInts[f][0] + framesInts[f+1][0] + framesInts[f+2][0];
+            for (var f=0; f<framesInts.length; f++) {
+                //console.log(framesInts[f], answer);
+                if (framesInts[f][1]===true && framesInts[f+1][1]===true && f<9) {
+                    if (Number.isInteger(framesInts[f+2][1])) {
+                        answer = answer + framesInts[f][0] + framesInts[f+1][0] + framesInts[f+2][1];
+                    }
+                    else {
+                        answer = answer + framesInts[f][0] + framesInts[f+1][0] + framesInts[f+2][0];
+                    }
                 }
-                else if (framesInts[f][1]===true) {
+                else if (framesInts[f][1]===true && f<9) {
                     answer = answer + framesInts[f][0] + framesInts[f+1][0];
                 }
-                else if (framesInts[f][1]===10) {
-                    answer = answer + framesInts[f][0] + framesInts[f+1][0];
+                else if (framesInts[f][0]===10 && f<9) {
+                    if (framesInts[f+1][1]===true) {
+                        answer = answer + framesInts[f][0] + framesInts[f+1][0];
+                    }
+                    else {
+                        answer = answer + framesInts[f][0] + framesInts[f+1][1];
+                    }
                 }
                 else {
                     answer = answer + framesInts[f][0];
