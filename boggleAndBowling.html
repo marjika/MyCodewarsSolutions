@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Get Sum</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+    <script>
+        
+        function checkWord( board, word ) {
+            //var previousLocation = findLocation(word[0]);
+
+            function Square(x,y) {
+                this.x=x;
+                this.y=y;
+                this.value=board[x][y];
+                this.used=false;
+                this.connectingLetter=function() {
+                    var validLetters = [];
+                    if (this.x-1>=0) {
+                        validLetters.push(board[this.x-1][this.y]);
+                        if (this.y-1>=0) {
+                            validLetters.push(board[this.x-1][this.y-1]);
+                            validLetters.push(board[this.x][this.y-1]);
+                        }
+                        if (this.y+1<board[this.x].length) {
+                            validLetters.push(board[this.x-1][this.y+1]);
+                            validLetters.push(board[this.x][this.y+1]);
+                        }
+                    }
+                    if (this.x+1<board.length) {
+                        validLetters.push(board[this.x+1][this.y]);
+                        if (this.y-1>=0) {
+                            validLetters.push(board[this.x+1][this.y-1]);
+                            validLetters.push(board[this.x][this.y-1]);
+                        }
+                        if (this.y+1<board[this.x].length) {
+                            validLetters.push(board[this.x+1][this.y+1]);
+                            validLetters.push(board[this.x][this.y+1]);
+                        }
+                    }
+                    return validLetters;
+                }
+            }
+            
+                function Grid(board) {
+                    this.positions = [];
+                    this.createGrid = function() {            
+                        for (var i=0; i<board.length; i++) {
+                            for (var j = 0; j<board[i].length; j++) {
+                                let square = new Square(i,j);
+                                this.positions.push(square);
+                                if (i===2 && j===0) {
+                                    var adjoining = square.connectingLetter();
+                                    //console.log(adjoining, board);
+                                }
+                                
+                            }
+                        }
+                    }
+                    this.currentSquare;
+                    this.validNext = function(nextLetter) {
+                        if (nextLetter.used===false && (currentSquare.connectingLetter()).includes(nextLetter.value)) {
+                            nextLetter.used = true;
+                            currentSquare = nextLetter;
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    }
+                }
+
+            function Valid(word) {
+
+                this.grid = new Grid(board);
+                this.grid.createGrid(board);
+            
+                this.checkPaths = function() {
+                    var possiblePaths = [];
+                    (this.grid.positions).forEach(function (space, index) {
+                        if (word[0]===space.value) {
+                            possiblePaths.push(space);
+                        }
+                    });
+                    console.log(possiblePaths);
+                    // possiblePaths.forEach(space => {
+                    //     this.grid.currentSquare = space;
+                    //     console.log(validNext(word[1]));
+                    // })
+                }
+
+            }
+            
+            let validation = new Valid(word);
+            validation.checkPaths();
+           
+
+            // for (var let=1; let<word.length; let++) {
+            //     var nextLocation = findLocation(word[let]);
+            //     if (nextLocation===null) {
+            //         return false;
+            //     }
+            //     else if (previousLocation[0]===nextLocation[0] && Math.abs(previousLocation[1]-nextLocation[1])!==1) {
+            //         return false;
+            //     }
+            //     else if (Math.abs(previousLocation[0]-nextLocation[0]!==1)) {
+            //         return false;
+            //     }
+            //     previousLocation = nextLocation;
+            // }
+            //console.log(board[0].length, board[0][1]);
+        }
+
+        var testBoard = [
+            ["E","A","R","A"],
+            ["N","L","E","C"],
+            ["I","A","I","S"],
+            ["B","Y","O","R"]
+        ];
+
+        //console.log( checkWord( testBoard, "C" ), 'true' );
+        //console.log( checkWord( testBoard, "EAR" ), 'true' );
+        //console.log( checkWord( testBoard, "EARS" ), 'false' );
+        //console.log( checkWord( testBoard, "BAILER" ), 'true' );
+        //console.log( checkWord( testBoard, "RSCAREIOYBAILNEA" ), 'true', "Must be able to check indefinite word lengths going in all directions" );
+        //console.log( checkWord( testBoard, "CEREAL" ), 'false', "Valid guesses can't overlap themselves" );
+        //console.log( checkWord( testBoard, "ROBES" ), 'false', "Valid guesses have to be adjacent" );
+        //console.log( checkWord( testBoard, "BAKER" ), 'false', "All the letters have to be in the board" );
+        //console.log( checkWord( testBoard, "CARS" ), 'false', "Valid guesses cannot wrap around the edges of the board" );
+
+     
+        //Ten-pin Bowling
+        function bowlingScore(frames) {
+            var framesArr = frames.split(" ");
+            var framesInts = [];
+            for (var i = 0; i<framesArr.length; i++) {
+                if (framesArr[i].length>2) {
+                    var tenth = framesArr[i].split("");
+                    if (tenth[1]==="/") {
+                        if (tenth[2]==="X") {
+                            framesInts.push([10, parseInt(tenth[0])], [10, 0]);
+                        }
+                        else {
+                            var temp = parseInt(tenth[2]);
+                            framesInts.push([10, parseInt(tenth[0])], [temp, false]);
+                        }
+                    }
+                    else if (tenth[2]==="/") {
+                        var temp2 = parseInt(tenth[1]);
+                        framesInts.push([10, true], [10, temp2]);
+
+                    }
+                    else {
+                        for (var b=0; b<tenth.length; b++) {
+                            if (tenth[b]==="X") {
+                                framesInts.push([10, true]);
+                            }
+                            else {
+                                framesInts.push([parseInt(tenth[b]), false]);
+                            }
+                        }
+                    }
+                }
+                else if (framesArr[i]==="X") {
+                    framesInts.push([10, true]);
+                }
+                else if (framesArr[i][1]==="/") {
+                    framesInts.push([10, parseInt(framesArr[i][0])]);
+                }
+                else {
+                    var temp = parseInt(framesArr[i][0]) + parseInt(framesArr[i][1]);
+                    framesInts.push([temp, parseInt(framesArr[i][0])]);
+                }
+
+            }
+            framesInts.push([0,false], [0,false]);
+            var answer = 0;
+            for (var f=0; f<framesInts.length; f++) {
+                //console.log(framesInts[f], answer);
+                if (framesInts[f][1]===true && framesInts[f+1][1]===true && f<9) {
+                    if (Number.isInteger(framesInts[f+2][1])) {
+                        answer = answer + framesInts[f][0] + framesInts[f+1][0] + framesInts[f+2][1];
+                    }
+                    else {
+                        answer = answer + framesInts[f][0] + framesInts[f+1][0] + framesInts[f+2][0];
+                    }
+                }
+                else if (framesInts[f][1]===true && f<9) {
+                    answer = answer + framesInts[f][0] + framesInts[f+1][0];
+                }
+                else if (framesInts[f][0]===10 && f<9) {
+                    if (framesInts[f+1][1]===true) {
+                        answer = answer + framesInts[f][0] + framesInts[f+1][0];
+                    }
+                    else {
+                        answer = answer + framesInts[f][0] + framesInts[f+1][1];
+                    }
+                }
+                else {
+                    answer = answer + framesInts[f][0];
+                }
+            }
+            return answer;
+        }
+
+        console.log(bowlingScore('11 11 11 11 11 11 11 11 11 11'), 20)
+        console.log(bowlingScore('X X X X X X X X X XXX'), 300)
+
+    </script>
+
+</body>
+
+</html>
