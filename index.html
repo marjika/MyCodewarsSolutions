@@ -74,13 +74,18 @@
                            [0,0,0,0,0,0,0],
                            [0,0,0,0,0,0,0],
                            [0,0,0,0,0,0,0],
-                           [0,0,0,0,0,0,0]]
+                           [0,0,0,0,0,0,0]];
+            function checkGameOver(gameArr) {
+                console.log(row, column, value);
+                // for (g=0; g<gameArr.length; g++) {
+
+                // }
+            }
             for (var i=0; i<piecesPositionList.length; i++) {
                 var player = (piecesPositionList[i].split("_"))[1];
                 var column = (piecesPositionList[i].split("_"))[0];
-                //console.log(column);
                 var col=0;
-                var row=0;
+                var row=5;
                 if (column==="A") {
                     col = 0;
                 }
@@ -102,14 +107,17 @@
                 else if (column==="G") {
                     col = 6;
                 }
-                while (gameArr[row][col]!==0 && row<5) {
-                    row++;
+                while (gameArr[row][col]!==0 && row>=0) {
+                    row--;
                 }
                 gameArr[row][col] = player;
-                console.log(gameArr);
+                console.log(i);
+                if (i>3) {
+                    checkGameOver(row, col, player);
+                }
             }
-            //console.log(gameArr[0][3]);
-            return "Yellow";
+
+            return "Draw";
         }
 
      
@@ -122,8 +130,32 @@
         // console.log(whoIsWinner(["A_Yellow", "B_Red", "B_Yellow", "C_Red", "G_Yellow",
         //                          "C_Red", "C_Yellow", "D_Red", "G_Yellow", "D_Red",
         //                          "G_Yellow", "D_Red", "F_Yellow", "E_Red", "D_Yellow"]), "Red");
-        console.log(whoIsWinner(["A_Red", "B_Yellow", "A_Red", "E_Yellow", "F_Red",
-                                 "G_Yellow"]), "Draw");
+        //console.log(whoIsWinner(["A_Red", "B_Yellow", "A_Red", "E_Yellow", "F_Red",
+        //                         "G_Yellow"]), "Draw");
+
+        function nextBigger(n){
+            var arr = n.toString(10).split('').map(Number);
+            if (arr.length<2) {
+                return -1;
+            }
+            else {
+                var sorted = [...arr.sort().reverse()];
+                if (sorted === arr) {
+                    console.log(arr);
+                }
+                else {
+                    if (arr[arr.length-1]!==arr[arr.length-2]) {
+                        var lastNum = arr[arr.length-2];
+                        var secondToLast = arr[arr.length-1];
+                        arr[arr.length-2]=secondToLast;
+                        arr[arr.length-1]=lastNum;
+                        return arr.join();
+                    }
+                }
+            }
+        }
+
+        console.log(nextBigger(513),531);
 
         
     </script>
