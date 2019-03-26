@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Get Sum</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+    <script>
+        //Counting Change Combinations
+        var countChange = function(money, coins) {
+            function sortNumber(a,b) {
+                return a - b;
+            }
+            var answer = [];
+            var coinArray = coins.sort(sortNumber);
+            console.log(coinArray);
+            var changeAddends = [];
+            var totalsArray = [];
+            var index = 0;
+            function findCombinations(sum, addends, sumsArray, coinsArray, i) {
+                if (sum<0) {
+                    return;
+                }
+                else if (sum === 0) { 
+                    sumsArray.push(addends); 
+                    return; 
+                } 
+                else {
+                    while (i < coinsArray.length && sum - coinsArray[i] >= 0) 
+                    { 
+                
+                        // Till every element in the array starting 
+                        // from i which can contribute to the sum 
+                        addends.push(coinsArray[i]); // add them to list 
+                
+                        // recur for next numbers 
+                        findCombinations(sum - coinsArray[i], addends, sumsArray, coinsArray, i); 
+                        i++; 
+                
+                        // remove number from list (backtracking) 
+                        addends.pop(); 
+                    }
+                }
+            }
+            findCombinations(money, changeAddends, totalsArray, coinArray, index);
+            return totalsArray.length;
+            //return answer.length;
+        }
+
+        // console.log(countChange(419, [ 2, 5, 10, 20, 50 ]), 18515);
+        // console.log(countChange(300, [ 500, 5, 50, 100, 20, 200, 10 ]), 1022);
+        // console.log(countChange(10, [5,2,3]), 4);
+        // console.log(countChange(11, [5,7]), 0);
+
+        //Shorter Version
+        // var countChange = function(money, coins) {
+        //     if(money < 0 || coins.length === 0)
+        //         return 0
+        //     else if(money === 0)
+        //         return 1
+        //     else
+        //         return countChange(money - coins[0], coins) + countChange(money, coins.slice(1))
+        // }
+
+        //Connect Four
+        function whoIsWinner(piecesPositionList){
+            var gameArr = [[0,0,0,0,0,0,0],
+                           [0,0,0,0,0,0,0],
+                           [0,0,0,0,0,0,0],
+                           [0,0,0,0,0,0,0],
+                           [0,0,0,0,0,0,0],
+                           [0,0,0,0,0,0,0]];
+            function checkGameOver(gameArr) {
+                console.log(row, column, value);
+                // for (g=0; g<gameArr.length; g++) {
+
+                // }
+            }
+            for (var i=0; i<piecesPositionList.length; i++) {
+                var player = (piecesPositionList[i].split("_"))[1];
+                var column = (piecesPositionList[i].split("_"))[0];
+                var col=0;
+                var row=5;
+                if (column==="A") {
+                    col = 0;
+                }
+                else if (column==="B") {
+                    col = 1;
+                }                
+                else if (column==="C") {
+                    col = 2;
+                }                
+                else if (column==="D") {
+                    col = 3;
+                }                
+                else if (column==="E") {
+                    col = 4;
+                }                
+                else if (column==="F") {
+                    col = 5;
+                }                
+                else if (column==="G") {
+                    col = 6;
+                }
+                while (gameArr[row][col]!==0 && row>=0) {
+                    row--;
+                }
+                gameArr[row][col] = player;
+                console.log(i);
+                if (i>3) {
+                    checkGameOver(row, col, player);
+                }
+            }
+
+            return "Draw";
+        }
+
+     
+        // console.log(whoIsWinner(["C_Yellow", "E_Red", "G_Yellow", "B_Red", "D_Yellow",
+        //                          "B_Red", "B_Yellow", "G_Red", "C_Yellow", "C_Red",
+        //                          "D_Yellow", "F_Red", "E_Yellow", "A_Red", "A_Yellow",
+        //                          "G_Red", "A_Yellow", "F_Red", "F_Yellow", "D_Red",
+        //                          "B_Yellow", "E_Red", "D_Yellow", "A_Red", "G_Yellow",
+        //                          "D_Red", "D_Yellow", "C_Red"]), "Yellow");
+        // console.log(whoIsWinner(["A_Yellow", "B_Red", "B_Yellow", "C_Red", "G_Yellow",
+        //                          "C_Red", "C_Yellow", "D_Red", "G_Yellow", "D_Red",
+        //                          "G_Yellow", "D_Red", "F_Yellow", "E_Red", "D_Yellow"]), "Red");
+        //console.log(whoIsWinner(["A_Red", "B_Yellow", "A_Red", "E_Yellow", "F_Red",
+        //                         "G_Yellow"]), "Draw");
+
+    function Wand(object){
+        this.MAX_PRIOR_SPELLS = 3;
+        //var target = object;
+
+        let spells = new Proxy(object, {});
+        console.log(spells[[Handler]]);
+        for (let prop in spells) {
+            console.log(prop);
+        }
+        //this.functions = obj;
+        // for (let prop in obj) {
+        //     console.log(typeOf o);
+        //     Object.assign(Wand.prototype, prop.prototype);
+        // }
+        // function target() {}
+        // target = Object.create(obj);
+        // for (let prop in obj) {
+        //     if (obj.__proto__.hasOwnProperty(prop)) {
+        //         target[prop] = obj[prop];
+        //     }
+        // }
+        //console.log(target.valueOf());
+        //return target;
+        // Object.keys(obj).forEach(function(key) {
+        //     console.log(key, obj[key]);
+        //     obj[key] = Function.prototype;
+        //     Function.prototype.name = key;
+        //     //Wand.prototype.bind(this);
+        //     //this.key = obj[key];
+        //     //this.key = obj[key];
+        //     //Wand.prototype.bind(obj[key]);
+        //     //Wand.prototype.name = key;
+
+        //     console.log(this.key);
+        // });
+        this.prioriIncantatem = function() {
+            console.log(["spell1", "spell2", "spell3"]);
+        }
+    }
+
+    // function evilTwin(obj) {
+    //     function target() {}
+    //     target = Object.create(obj);
+    //     for (let prop in obj) {
+    //         if (obj.__proto__.hasOwnProperty(prop)) {
+    //             target[prop] = obj[prop];
+    //         }
+    //     }
+    //     target.hasGoatee = true;
+    //     return target;
+    // }
+
+        function callSomething(thing = something()) {
+            return thing;
+        }
+
+        let numberOfTimesCalled = 0;
+        function something() {
+            numberOfTimesCalled += 1;
+            return numberOfTimesCalled;
+        }
+
+        console.log(callSomething()); // 1
+        console.log(callSomething()); // 2
+        let w = new Wand({
+            expelliarmus: function() {},
+            alohomora: function() { return "Door unlocked"; },
+            avadaKedavra: function() {}
+        });
+       
+        console.log(w);
+        w.avadaKedavra();
+        console.log(w.alohamora());
+
+        
+       
+    
+
+        
+    </script>
+
+</body>
+
+</html>
