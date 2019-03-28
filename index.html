@@ -43,13 +43,40 @@
             return answer;  
         }
 
-        console.log(findSub("QQ8888QBtvQQQrQiDDQQQQQQ8QQ[QQmiQDQQQD88888(rlhEQQDDQDQDQ8QQQ8QnQnQQQDDD88Q8QQ8QnMgQRQQQDQDQQQQ888aQQjcQDQQD8Q888QQ88QQQKDQDDQQQDQ8QQQ8QQQ8QPNDQQ8Q88QCQjQ}hDQDDQQQQD8QQQQQQ8gQIWQDQDDDQQDD888)WNzQfBQFBDDDQDQDQ","8","D","Q"), "8QBtvQQQrQiD");
+        //console.log(findSub("QQ8888QBtvQQQrQiDDQQQQQQ8QQ[QQmiQDQQQD88888(rlhEQQDDQDQDQ8QQQ8QnQnQQQDDD88Q8QQ8QnMgQRQQQDQDQQQQ888aQQjcQDQQD8Q888QQ88QQQKDQDDQQQDQ8QQQ8QQQ8QPNDQQ8Q88QCQjQ}hDQDDQQQQD8QQQQQQ8gQIWQDQDDDQQDD888)WNzQfBQFBDDDQDQDQ","8","D","Q"), "8QBtvQQQrQiD");
 
-        console.log(findSub("abacbaccbbccca","a","b","c") , "accb");
+        //console.log(findSub("abacbaccbbccca","a","b","c") , "accb");
 
-        console.log(findSub("x.z.z.z.yxzzzy","x","y","z") , "x.z.z.z.y");
+        //console.log(findSub("x.z.z.z.yxzzzy","x","y","z") , "x.z.z.z.y");
 
+        //7 kyu--Tails of the High Seas
+        function biteMeMonkey (monkObj, clientObj, terrain) {
+            var monkeyStrength = monkObj.orangutans*5 + monkObj.chimpanzees*3 + monkObj.gorillas*9 + monkObj.hitPoints;
+            if (terrain==="sea") {
+                monkeyStrength = monkeyStrength + 10;
+            }
+            if (monkObj.janeReporting4Duty) {
+                monkeyStrength = monkeyStrength*(monkObj.chimpanzees/2);
+            }   
+            var humanStrength = clientObj.crew+clientObj.hitPoints;         
+            if (terrain==="island") {
+                humanStrength = humanStrength + 20;
+            }
 
+            if (monkeyStrength >= humanStrength) {
+                return "Abandon ship! Save your own skin and blame it on the 'modestly-sized' yacht!";
+            }
+            else {
+                return "Everything's good, I'll see you in the office on Monday.";
+            }
+        }
+
+        console.log(biteMeMonkey({hitPoints: 7, orangutans: 10, chimpanzees: 1, gorillas: 9, janeReporting4Duty: true}, 
+                                    {hitPoints: 14, crew: 62}, "sea"), ("Everything's good, I'll see you in the office on Monday."));
+        console.log(biteMeMonkey({hitPoints: 10, orangutans: 5, chimpanzees: 4, gorillas: 2, janeReporting4Duty: true}, 
+                                    {hitPoints: 50, crew: 70}, "island"), ("Everything's good, I'll see you in the office on Monday."));
+        console.log(biteMeMonkey({hitPoints: 20, orangutans: 5, chimpanzees: 3, gorillas: 4, janeReporting4Duty: true}, 
+                                    {hitPoints: 70, crew: 35}, "island"), ("Abandon ship! Save your own skin and blame it on the 'modestly-sized' yacht!"));
         
     </script>
 
