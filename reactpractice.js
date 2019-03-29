@@ -54,3 +54,19 @@ class WishlistForm extends React.Component {
     );
   }
 };
+
+const EggList = (props) => {
+    return (
+        <ul>
+            { props.eggs.map( (egg, index) => {
+                return <EasterEgg name={ egg } key={ index } />
+            })}
+        </ul>
+    )
+};
+
+const EasterEgg = (props) => {
+  return (
+    <li>{ props.name }</li>
+  )
+};
