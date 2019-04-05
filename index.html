@@ -98,12 +98,37 @@
             return answer.slice(0,-1);
         }
 
-        console.log(customChristmasTree("*@o",3),
-          '  *\n @ o\n* @ o\n  |');
-        //'   *\n  @ o\n * @ o\n  |'
-        console.log(customChristmasTree("*@o",6),
-          '     *\n    @ o\n   * @ o\n  * @ o *\n @ o * @ o\n* @ o * @ o\n     |\n     |')
-        //'     *\n    @ o\n   * @ o\n  * @ o *\n @ o * @ o\n* @ o * @ o\n     |'
+        //console.log(customChristmasTree("*@o",3),
+        //  '  *\n @ o\n* @ o\n  |');
+        //console.log(customChristmasTree("*@o",6),
+        //  '     *\n    @ o\n   * @ o\n  * @ o *\n @ o * @ o\n* @ o * @ o\n     |\n     |');
+        //  console.log(customChristmasTree("%^v@!t",7));
+
+        //Thinking & Testing: Sing a Song
+        function singSong(a,b){
+            if (!b) {
+                var let = a.charAt(0).toLowerCase();
+                if (let==="a"||let==="e"||let==="i"||let==="o"||let==="u") {
+                    return "I have an "+ a + ".";
+                }
+                else {
+                    return "I have a "+ a + ".";
+                }
+            }
+            else if (a===b) {
+                return "I have two " + a + "s.";
+            }
+            else {
+                return "Uhh! " + a.charAt(0).toUpperCase() + a.slice(1) + "-" + b + "!"
+            }
+        }
+
+        console.log(singSong("pen"),"I have a pen.");
+        console.log(singSong("Obama"),"I have an Obama.");
+        console.log(singSong("icicle"),"I have an icicle.");
+        console.log(singSong("apple","pen"),"Uhh! Apple-pen!");
+        console.log(singSong("pen","pen"),"I have two pens.");
+
 
 
     </script>
