@@ -123,12 +123,54 @@
             }
         }
 
-        console.log(singSong("pen"),"I have a pen.");
-        console.log(singSong("Obama"),"I have an Obama.");
-        console.log(singSong("icicle"),"I have an icicle.");
-        console.log(singSong("apple","pen"),"Uhh! Apple-pen!");
-        console.log(singSong("pen","pen"),"I have two pens.");
+        // console.log(singSong("pen"),"I have a pen.");
+        // console.log(singSong("Obama"),"I have an Obama.");
+        // console.log(singSong("icicle"),"I have an icicle.");
+        // console.log(singSong("apple","pen"),"Uhh! Apple-pen!");
+        // console.log(singSong("pen","pen"),"I have two pens.");
 
+        //Halloween: trick or treat!
+        function trickOrTreat(children,candies){
+            if (candies.length<children) {
+                return "Trick or treat!";
+            }
+            var candyArr = [];
+            for (var i=0; i<candies.length; i++) {
+                var totalCandy = 0;
+                for (var j=0; j< candies[i].length; j++) {
+                    if (candies[i][j] === "bomb") {
+                        return "Trick or treat!";
+                    }
+                    else if (candies[i][j] === "candy") {
+                        totalCandy++;
+                    }
+                }
+                if (totalCandy<2) {
+                    return "Trick or treat!";
+                }
+                else {
+                    candyArr.push(totalCandy);
+                }
+            }
+
+            for (var candy=0; candy<candyArr.length-1; candy++) {
+                if (candyArr[candy]!==candyArr[candy+1]) {
+                    return "Trick or treat!";
+                }
+            }  
+            return "Thank you, strange uncle!";
+        }
+
+
+        console.log(trickOrTreat(3,[["candy","apple","candy"],["candy","candy"],["candy","candy"]]), "Thank you, strange uncle!");
+
+        console.log(trickOrTreat(3,[["candy","apple"],["apple","candy"],["candy","apple"]]), "Trick or treat!");
+
+        console.log(trickOrTreat(3,[["candy","apple","candy"],["candy","candy"],["candy","candy","candy"]]), "Trick or treat!");
+
+        console.log(trickOrTreat(3,[["candy","apple","candy"],["candy","candy"]]), "Trick or treat!");
+
+        console.log(trickOrTreat(3,[["candy","apple","candy"],["candy","candy"],["candy","bomb","candy"]]), "Trick or treat!");
 
 
     </script>
