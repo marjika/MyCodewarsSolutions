@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Get Sum</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    <script>
+
+        //from char a to char b. Find a substring that contains most char c
+        function findSub(s,a,b,c){
+            var answer = "";
+            var numOfC = 0;
+            for (var i=0; i< s.length-1; i++) {
+                if (s[i]===a) {
+                    var bindex = i+2;
+                    while (bindex<s.length) {
+                        if (s[bindex]===b) {
+                            var sub = s.substring(i,bindex+1);
+                            var tempNum = 0;
+                            var noBreak = true;
+                            for (var j=1; j<sub.length-1; j++) {
+                                if (sub[j]===a || sub[j]===b) {
+                                    noBreak=false;
+                                    break;
+                                }
+                                else if (sub[j]===c) {
+                                    tempNum++;
+                                }
+                            }
+                            if (noBreak && tempNum>numOfC) {
+                                answer=sub;
+                                numOfC=tempNum;
+                            }
+                        } 
+                        bindex++; 
+                    }               
+                }                
+            }
+            return answer;  
+        }
+
+        //console.log(findSub("QQ8888QBtvQQQrQiDDQQQQQQ8QQ[QQmiQDQQQD88888(rlhEQQDDQDQDQ8QQQ8QnQnQQQDDD88Q8QQ8QnMgQRQQQDQDQQQQ888aQQjcQDQQD8Q888QQ88QQQKDQDDQQQDQ8QQQ8QQQ8QPNDQQ8Q88QCQjQ}hDQDDQQQQD8QQQQQQ8gQIWQDQDDDQQDD888)WNzQfBQFBDDDQDQDQ","8","D","Q"), "8QBtvQQQrQiD");
+
+        //console.log(findSub("abacbaccbbccca","a","b","c") , "accb");
+
+        //console.log(findSub("x.z.z.z.yxzzzy","x","y","z") , "x.z.z.z.y");
+
+        //7 kyu--Tails of the High Seas
+        function biteMeMonkey (monkObj, clientObj, terrain) {
+            var monkeyStrength = monkObj.orangutans*5 + monkObj.chimpanzees*3 + monkObj.gorillas*9 + monkObj.hitPoints;
+            if (terrain==="sea") {
+                monkeyStrength = monkeyStrength + 10;
+            }
+            if (monkObj.janeReporting4Duty) {
+                monkeyStrength = monkeyStrength*(monkObj.chimpanzees/2);
+            }   
+            var humanStrength = clientObj.crew+clientObj.hitPoints;         
+            if (terrain==="island") {
+                humanStrength = humanStrength + 20;
+            }
+
+            if (monkeyStrength >= humanStrength) {
+                return "Abandon ship! Save your own skin and blame it on the 'modestly-sized' yacht!";
+            }
+            else {
+                return "Everything's good, I'll see you in the office on Monday.";
+            }
+        }
+
+        // console.log(biteMeMonkey({hitPoints: 7, orangutans: 10, chimpanzees: 1, gorillas: 9, janeReporting4Duty: true}, 
+        //                             {hitPoints: 14, crew: 62}, "sea"), ("Everything's good, I'll see you in the office on Monday."));
+        // console.log(biteMeMonkey({hitPoints: 10, orangutans: 5, chimpanzees: 4, gorillas: 2, janeReporting4Duty: true}, 
+        //                             {hitPoints: 50, crew: 70}, "island"), ("Everything's good, I'll see you in the office on Monday."));
+        // console.log(biteMeMonkey({hitPoints: 20, orangutans: 5, chimpanzees: 3, gorillas: 4, janeReporting4Duty: true}, 
+        //                             {hitPoints: 70, crew: 35}, "island"), ("Abandon ship! Save your own skin and blame it on the 'modestly-sized' yacht!"));
+        
+        //Custon Christmas Tree
+        function customChristmasTree(chars,n){
+            var answer = "";
+            var charsIndex = 0;
+            for (var i=0; i<n; i++) {
+                answer = answer + " ".repeat(n-i-1);
+                var charsStr = "";
+                while (charsStr.length < ((i*2)+1)) {
+                    charsStr = charsStr + chars[charsIndex] + " ";
+                    charsIndex++;
+                    if (charsIndex>=chars.length){
+                        charsIndex = 0;
+                    }
+                }
+                answer = answer + charsStr.slice(0, -1) + '\n';
+            }
+            answer = answer + (" ".repeat(n-1) + '|' + '\n').repeat(Math.floor(n/3));
+            return answer.slice(0,-1);
+        }
+
+        //console.log(customChristmasTree("*@o",3),
+        //  '  *\n @ o\n* @ o\n  |');
+        //console.log(customChristmasTree("*@o",6),
+        //  '     *\n    @ o\n   * @ o\n  * @ o *\n @ o * @ o\n* @ o * @ o\n     |\n     |');
+        //  console.log(customChristmasTree("%^v@!t",7));
+
+        //Thinking & Testing: Sing a Song
+        function singSong(a,b){
+            if (!b) {
+                var let = a.charAt(0).toLowerCase();
+                if (let==="a"||let==="e"||let==="i"||let==="o"||let==="u") {
+                    return "I have an "+ a + ".";
+                }
+                else {
+                    return "I have a "+ a + ".";
+                }
+            }
+            else if (a===b) {
+                return "I have two " + a + "s.";
+            }
+            else {
+                return "Uhh! " + a.charAt(0).toUpperCase() + a.slice(1) + "-" + b + "!"
+            }
+        }
+
+        // console.log(singSong("pen"),"I have a pen.");
+        // console.log(singSong("Obama"),"I have an Obama.");
+        // console.log(singSong("icicle"),"I have an icicle.");
+        // console.log(singSong("apple","pen"),"Uhh! Apple-pen!");
+        // console.log(singSong("pen","pen"),"I have two pens.");
+
+        //Halloween: trick or treat!
+        function trickOrTreat(children,candies){
+            if (candies.length<children) {
+                return "Trick or treat!";
+            }
+            var candyArr = [];
+            for (var i=0; i<candies.length; i++) {
+                var totalCandy = 0;
+                for (var j=0; j< candies[i].length; j++) {
+                    if (candies[i][j] === "bomb") {
+                        return "Trick or treat!";
+                    }
+                    else if (candies[i][j] === "candy") {
+                        totalCandy++;
+                    }
+                }
+                if (totalCandy<2) {
+                    return "Trick or treat!";
+                }
+                else {
+                    candyArr.push(totalCandy);
+                }
+            }
+
+            for (var candy=0; candy<candyArr.length-1; candy++) {
+                if (candyArr[candy]!==candyArr[candy+1]) {
+                    return "Trick or treat!";
+                }
+            }  
+            return "Thank you, strange uncle!";
+        }
+
+
+        console.log(trickOrTreat(3,[["candy","apple","candy"],["candy","candy"],["candy","candy"]]), "Thank you, strange uncle!");
+
+        console.log(trickOrTreat(3,[["candy","apple"],["apple","candy"],["candy","apple"]]), "Trick or treat!");
+
+        console.log(trickOrTreat(3,[["candy","apple","candy"],["candy","candy"],["candy","candy","candy"]]), "Trick or treat!");
+
+        console.log(trickOrTreat(3,[["candy","apple","candy"],["candy","candy"]]), "Trick or treat!");
+
+        console.log(trickOrTreat(3,[["candy","apple","candy"],["candy","candy"],["candy","bomb","candy"]]), "Trick or treat!");
+
+
+    </script>
+
+</body>
+</html>
