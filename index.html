@@ -87,31 +87,33 @@
                     var longest = "";
                     var longestIndex = 0;
                     var temp="";
-                    for (var i=0; i<str.length; i++) {
-                        if (str[i]===element && str[i+1]!==element) {
-                            temp=temp+str[i];
+                    for (var i=0; i<answer.length; i++) {
+                        if (answer[i]===element && answer[i+1]!==element) {
+                            temp=temp+answer[i];
                             if (temp.length>longest.length) {
                                 longest = temp;
                                 longestIndex = i;
                             }
+                            temp = "";
                         }
-                        else if (str[i]===element && str[i+1]===element) {
-                            temp = temp + str[i];
+                        else if (answer[i]===element && answer[i+1]===element) {
+                            temp = temp + answer[i];
                         }
                     }
                     var shortest = longest;
                     var shortestIndex = longestIndex;
                     temp="";
-                    for (var j = 0; j<str.length; j++) {
-                        if (str[j]===element && str[j+1]!==element) {
-                            temp=temp+str[j];
+                    for (var j = 0; j<answer.length; j++) {
+                        if (answer[j]===element && answer[j+1]!==element) {                           
+                            temp=temp+answer[j];
                             if (temp.length<shortest.length) {
                                 shortest = temp;
                                 shortestIndex = j;
                             }
+                            temp = "";
                         }
-                        else if (str[j]===element && str[j+1]===element) {
-                            temp = temp + str[j];
+                        else if (answer[j]===element && answer[j+1]===element) {
+                            temp = temp + answer[j];
                         }
                     }
                     answer = answer.slice(0, shortestIndex) + element + answer.slice(shortestIndex);
@@ -120,10 +122,10 @@
             return answer;
         }
 
-        //console.log(sc("xyx",["x"]), "xxyx");
-        //console.log(sc("abababab",["b"]), "abbababab");
+        console.log(sc("xyx",["x"]), "xxyx");
+        console.log(sc("abababab",["b"]), "abbababab");
         console.log(sc("abababab",["b","b","b","b"]), "abbabbabbabb");
-        //console.log(sc("ab",["c"]), "abc");
+        console.log(sc("ab",["c"]), "abc");
 
 
 </script>
