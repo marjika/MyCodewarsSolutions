@@ -12,6 +12,7 @@
 
     <script>
 
+        //Surviving the seven kingdoms
         var finalDestination = function(currentPos, directions) {
             var locales = [
                 ["Deepwood Motte", "Shadow Tower", "Castle Black", "Eastwatch", "Bay of Seals"],
@@ -71,9 +72,58 @@
             return locales[vertical][horizontal];
         }
 
-        console.log(finalDestination("King's Landing", "N2 W1"), "Riverrun");
-        console.log(finalDestination("King's Landing", "E3"), "You do not have a ship to cross this sea.");
-        console.log(finalDestination("King's Landing", "N7"), "The Wall blocks your way");
+        // console.log(finalDestination("King's Landing", "N2 W1"), "Riverrun");
+        // console.log(finalDestination("King's Landing", "E3"), "You do not have a ship to cross this sea.");
+        // console.log(finalDestination("King's Landing", "N7"), "The Wall blocks your way");
+
+        //Balance Attraction
+        function sc(str,chars){
+            var answer = str;
+            chars.forEach(element => {
+                if (!str.includes(element)) {
+                    answer = answer + element;
+                }
+                else {
+                    var longest = "";
+                    var longestIndex = 0;
+                    var temp="";
+                    for (var i=0; i<str.length; i++) {
+                        if (str[i]===element && str[i+1]!==element) {
+                            temp=temp+str[i];
+                            if (temp.length>longest.length) {
+                                longest = temp;
+                                longestIndex = i;
+                            }
+                        }
+                        else if (str[i]===element && str[i+1]===element) {
+                            temp = temp + str[i];
+                        }
+                    }
+                    var shortest = longest;
+                    var shortestIndex = longestIndex;
+                    temp="";
+                    for (var j = 0; j<str.length; j++) {
+                        if (str[j]===element && str[j+1]!==element) {
+                            temp=temp+str[j];
+                            if (temp.length<shortest.length) {
+                                shortest = temp;
+                                shortestIndex = j;
+                            }
+                        }
+                        else if (str[j]===element && str[j+1]===element) {
+                            temp = temp + str[j];
+                        }
+                    }
+                    answer = answer.slice(0, shortestIndex) + element + answer.slice(shortestIndex);
+                }
+            });
+            return answer;
+        }
+
+        //console.log(sc("xyx",["x"]), "xxyx");
+        //console.log(sc("abababab",["b"]), "abbababab");
+        console.log(sc("abababab",["b","b","b","b"]), "abbabbabbabb");
+        //console.log(sc("ab",["c"]), "abc");
 
 
 </script>
